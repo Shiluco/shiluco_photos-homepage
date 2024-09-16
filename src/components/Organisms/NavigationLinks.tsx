@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { Box, Stack, Typography } from "@mui/material";
 import { useState } from "react";
@@ -20,19 +21,32 @@ const NavigationLinks = () => {
         }}
       >
         <Stack direction="row" spacing={2}>
-          <Typography component={Link} to="/" variant="h6" color="textPrimary">
+          <Typography
+            component={Link}
+            to="/"
+            variant="h6"
+            color="textPrimary"
+            sx={{
+              textDecoration: "none",
+              "&:hover": { color: "primary.main" },
+            }}
+          >
             Top
           </Typography>
           <Box
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            style={{ position: "relative" }}
+            sx={{ position: "relative" }}
           >
             <Typography
               component={Link}
               to="/gallery"
               variant="h6"
               color="textPrimary"
+              sx={{
+                textDecoration: "none",
+                "&:hover": { color: "primary.main" },
+              }}
             >
               Gallery
             </Typography>
@@ -40,15 +54,17 @@ const NavigationLinks = () => {
               <Stack
                 direction="column"
                 spacing={1}
-                style={{
-                  position: "absolute",
-                }}
+                sx={{ position: "absolute" }}
               >
                 <Typography
                   component={Link}
                   to="/gallery/client-work"
                   variant="body1"
                   color="textSecondary"
+                  sx={{
+                    textDecoration: "none",
+                    "&:hover": { color: "primary.main" },
+                  }}
                 >
                   Client Work
                 </Typography>
@@ -57,6 +73,10 @@ const NavigationLinks = () => {
                   to="/gallery/portrait"
                   variant="body1"
                   color="textSecondary"
+                  sx={{
+                    textDecoration: "none",
+                    "&:hover": { color: "primary.main" },
+                  }}
                 >
                   Portrait
                 </Typography>
@@ -65,6 +85,10 @@ const NavigationLinks = () => {
                   to="/gallery/scenery"
                   variant="body1"
                   color="textSecondary"
+                  sx={{
+                    textDecoration: "none",
+                    "&:hover": { color: "primary.main" },
+                  }}
                 >
                   Scenery
                 </Typography>
@@ -76,6 +100,10 @@ const NavigationLinks = () => {
             to="/about"
             variant="h6"
             color="textPrimary"
+            sx={{
+              textDecoration: "none",
+              "&:hover": { color: "primary.main" },
+            }}
           >
             About
           </Typography>
@@ -84,6 +112,10 @@ const NavigationLinks = () => {
             to="/contact"
             variant="h6"
             color="textPrimary"
+            sx={{
+              textDecoration: "none",
+              "&:hover": { color: "primary.main" },
+            }}
           >
             Contact
           </Typography>
@@ -94,3 +126,6 @@ const NavigationLinks = () => {
 };
 
 export default NavigationLinks;
+
+
+
