@@ -1,8 +1,22 @@
-const Top = () => {
+
+import { Box,  Typography } from "@mui/material";
+import NavigationLinks from "../molecules/NavigationLinks";
+
+
+const Top = () =>
+{
+
+
   return (
-    <div>
-      <h1>Top</h1>
-    </div>
+    <>
+      <Box >
+        <NavigationLinks />
+        <Typography variant="h1">Top</Typography>
+        
+      </Box>
+      
+      
+    </>
   );
 }
 
