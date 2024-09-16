@@ -8,18 +8,7 @@ const NavigationLinks = () => {
 
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          position: "absolute",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "auto",
-        }}
-      >
+      <Box>
         <Stack direction="row" spacing={2}>
           <Typography
             component={Link}
@@ -32,6 +21,30 @@ const NavigationLinks = () => {
             }}
           >
             Top
+          </Typography>
+          <Typography
+            component={Link}
+            to="/about"
+            variant="h6"
+            color="textPrimary"
+            sx={{
+              textDecoration: "none",
+              "&:hover": { color: "primary.main" },
+            }}
+          >
+            About
+          </Typography>
+          <Typography
+            component={Link}
+            to="/contact"
+            variant="h6"
+            color="textPrimary"
+            sx={{
+              textDecoration: "none",
+              "&:hover": { color: "primary.main" },
+            }}
+          >
+            Contact
           </Typography>
           <Box
             onMouseEnter={() => setHovered(true)}
@@ -95,30 +108,6 @@ const NavigationLinks = () => {
               </Stack>
             )}
           </Box>
-          <Typography
-            component={Link}
-            to="/about"
-            variant="h6"
-            color="textPrimary"
-            sx={{
-              textDecoration: "none",
-              "&:hover": { color: "primary.main" },
-            }}
-          >
-            About
-          </Typography>
-          <Typography
-            component={Link}
-            to="/contact"
-            variant="h6"
-            color="textPrimary"
-            sx={{
-              textDecoration: "none",
-              "&:hover": { color: "primary.main" },
-            }}
-          >
-            Contact
-          </Typography>
         </Stack>
       </Box>
     </>
