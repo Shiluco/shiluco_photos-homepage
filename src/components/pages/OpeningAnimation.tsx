@@ -27,7 +27,7 @@ const OpeningAnimation = (props: OpeningAnimationProps) =>
     timeline.fromTo(
       boxRef.current,
       { opacity: 1 },
-      { opacity: 0, duration: 0.8 },
+      { opacity: 0, duration: 0.6 },
       "<"
     )
   }, []);

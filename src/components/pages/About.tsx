@@ -1,9 +1,33 @@
 import { Box, Stack, Typography } from "@mui/material";
 import Header from "../templates/Hedder";
+import { gsap } from "gsap";
 //file
-import profile from "../../../public/profile.webp";
+import profile from "../../assets/profile.png";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 
-const Introduction = () => {
+const Introduction = () =>
+{
+  const aboutIconRef = useRef(null);
+  const aboutTextRef = useRef(null);
+  const aboutTimeline = gsap.timeline();
+
+  useGSAP(() =>
+  { 
+    aboutTimeline.fromTo(
+      aboutIconRef.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 1 }
+    );
+    aboutTimeline.fromTo(
+      aboutTextRef.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 1 },
+      "<"
+    );
+  }
+    , []);
+
   return (
     <>
       <Header text="About" />
@@ -14,12 +38,12 @@ const Introduction = () => {
         height="90vh" // 画面全体の高さに合わせる
       >
         <Stack direction="row" spacing={2} alignItems="center">
-          <img src={profile} alt="profile" style={{ width: "10vw" }} />
-          <Stack direction="column" spacing={2}>
-            <Typography variant="h6">
+          <img ref={aboutIconRef} src={profile} alt="profile" style={{ width: "15vw" }} />
+          <Stack ref={aboutTextRef} direction="column" spacing={2}>
+            <Typography variant="h4">
               こんにちは、Shiluco_photosです。
             </Typography>
-            <Typography variant="h6" sx={{ marginTop: "16px" }}>
+            <Typography variant="h5" sx={{ marginTop: "16px", paddingLeft:"4px",lineHeight:'35x' }}>
               このサイトは、私の写真を紹介するためのサイトです。
               <br />
               私は、日本の風景や建築物を中心に撮影しています。

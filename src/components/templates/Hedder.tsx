@@ -23,7 +23,7 @@ const Header = (props: HeaderProps) => {
       }}
     >
       <Typography variant="h4">
-        {text}
+        SlPs
       </Typography>
       <NavigationLinks />
     </Stack>
