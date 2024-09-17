@@ -1,12 +1,11 @@
-import { Stack, Typography } from '@mui/material';
-import NavigationLinks from '../Organisms/NavigationLinks';
+import { Stack, Typography } from "@mui/material";
+import NavigationLinks from "../Organisms/NavigationLinks";
 
 type HeaderProps = {
   text: string;
 };
 
-const Header = (props:HeaderProps) =>
-{
+const Header = (props: HeaderProps) => {
   const { text } = props;
   return (
     <Stack
@@ -17,7 +16,11 @@ const Header = (props:HeaderProps) =>
       paddingLeft="2%"
       paddingRight="2%"
       paddingY={2}
-
+      sx={{
+        backgroundColor: "rgba(0, 0, 0, 0)", // 黒の透明感
+        boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)", 
+        
+      }}
     >
       <Typography variant="h4">
         {text}

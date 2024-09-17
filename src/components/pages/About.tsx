@@ -8,13 +8,10 @@ const Introduction = () => {
     <>
       <Header text="About" />
       <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "20px",
-          height: "90vh",
-        }}
+        display="flex"
+        justifyContent="space-evenly" // 要素を均等に分ける（左右の端にもスペースを作る）
+        alignItems="center"
+        height="90vh" // 画面全体の高さに合わせる
       >
         <Stack direction="row" spacing={2} alignItems="center">
           <img src={profile} alt="profile" style={{ width: "10vw" }} />

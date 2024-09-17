@@ -11,9 +11,9 @@ const Top = () => {
 
       <Box
         display="flex"
-        justifyContent="space-evenly" // 要素を均等に分ける（左右の端にもスペースを作る）
+        justifyContent="space-evenly"
         alignItems="center"
-        height="90vh" // 画面全体の高さに合わせる
+        height="90vh"
       >
         <Typography
           variant="h1"
@@ -22,12 +22,21 @@ const Top = () => {
             transform: "rotate(180deg)",
           }}
         >
-          shiluco
+          Shiluco
         </Typography>
 
-        <img src={topimage} alt="topimage" style={{ width: "70%" }} />
+        <img
+          src={topimage}
+          alt="topimage"
+          style={{
+            height: "90%",
+            borderRadius: "2px",
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
+          }}
+        />
+
         <Typography variant="h1" style={{ writingMode: "vertical-lr" }}>
-          photos
+          Photos
         </Typography>
       </Box>
     </>
