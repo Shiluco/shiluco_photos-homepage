@@ -11,18 +11,21 @@ import Scenery from "./components/pages/gallery/Scenery";
 import { ThemeProvider } from "@emotion/react";
 import theme from "./theme";
 import { CssBaseline } from "@mui/material";
+import { useState } from "react";
 //css
 
 
-function App() {
-  
+function App()
+{
+  const [showOpening, setShowOpening] = useState(true); // 初回のみ表示するための状態
+
   return (
     <>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Router>
           <Routes>
-            <Route path="/" element={<Top />} />
+            <Route path="/" element={<Top showOpening={showOpening} setShowOpening={setShowOpening} />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/gallery" element={<All />} />

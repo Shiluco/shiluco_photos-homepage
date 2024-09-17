@@ -4,25 +4,31 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import welcomeImage from "../../../public/photos/Portrait/02.jpg";
 
-const Welcome = () => {
+type WelcomeProps = {
+  timeline: gsap.core.Timeline;
+};
+
+const Welcome = (props: WelcomeProps) =>
+{
+  const { timeline } = props;
   const welcomeImageRef = useRef(null);
   const sideTextRef1 = useRef(null);
   const sideTextRef2 = useRef(null);
 
   useGSAP(() => {
-    const timeline = gsap.timeline();
 
     timeline.fromTo(
       welcomeImageRef.current,
-      { opacity: 0.2 },
-      { opacity: 1, duration: 1 }
+      { opacity: 0.8 },
+      { opacity: 1, duration: 0.4 },
+      "<"
     );
 
     timeline.fromTo(
       sideTextRef1.current,
       { clipPath: "inset(0% 0% 100% 0)" },
       { clipPath: "inset(0% 0% 0% 0)", duration: 1 },
-      
+      "<"
     );
 
     
