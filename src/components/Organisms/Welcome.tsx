@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 //file
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import welcomePhoto from "../../assets/photos/Portrait/01.jpg";
+import welcomePhoto from "../../../public/photos/Portrait/02.jpg";
 
 
 type WelcomeProps = {
@@ -70,6 +70,8 @@ const Welcome = (props:WelcomeProps) =>
       "<"
     );
   }, []);
+
+  
 
   return (
     <>

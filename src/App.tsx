@@ -6,42 +6,43 @@ gsap.registerPlugin(CustomEase);
 CustomEase.create("iOSEaseInOut", "0.42, 0.0, 0.58, 1.0");
 
 //component
-import Top from './components/pages/Top'
-import About from './components/pages/About'
-import Contact from './components/pages/Contact'
-import All from './components/pages/gallery/All'
-import ClientWork from './components/pages/gallery/Clientwork'
-import Portrait from './components/pages/gallery/Portrait'
-import Scenery from "./components/pages/gallery/Scenery";
+import Top from "./components/pages/Top";
+import About from "./components/pages/About";
+import Contact from "./components/pages/Contact";
+import Gallery from "./components/pages/Gallery";
+import Layout from "./components/Layout"; // Layout をインポート
 import { ThemeProvider } from "@emotion/react";
 import theme from "./theme";
 import { CssBaseline } from "@mui/material";
 import { useState } from "react";
-//css
 
-
-function App()
-{
+// App コンポーネント
+function App() {
   const [showOpening, setShowOpening] = useState(true); // 初回のみ表示するための状態
 
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router>
+        <Layout>
           <Routes>
-            <Route path="/" element={<Top showOpening={showOpening} setShowOpening={setShowOpening} />} />
+            <Route
+              path="/"
+              element={
+                <Top
+                  showOpening={showOpening}
+                  setShowOpening={setShowOpening}
+                />
+              }
+            />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/gallery" element={<All />} />
-            <Route path="/gallery/client-work" element={<ClientWork />} />
-            <Route path="/gallery/portrait" element={<Portrait />} />
-            <Route path="/gallery/Scenery" element={<Scenery />} />
+            <Route path="/gallery" element={<Gallery />} />
           </Routes>
-        </Router>
-      </ThemeProvider>
-    </>
+        </Layout>
+      </Router>
+    </ThemeProvider>
   );
 }
 
-export default App
+export default App;
