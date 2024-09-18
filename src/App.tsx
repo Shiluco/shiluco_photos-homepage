@@ -1,5 +1,10 @@
 //library
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { CustomEase } from "gsap/CustomEase";
+import gsap from "gsap";
+gsap.registerPlugin(CustomEase);
+CustomEase.create("iOSEaseInOut", "0.42, 0.0, 0.58, 1.0");
+
 //component
 import Top from './components/pages/Top'
 import About from './components/pages/About'

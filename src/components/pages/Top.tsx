@@ -3,6 +3,7 @@ import gsap from "gsap";
 import Welcome from "../Organisms/Welcome";
 import Header from "../templates/Hedder";
 import OpeningAnimation from "./OpeningAnimation";
+import Hoge from "./Hoge";
 
 
 type topProps = {
@@ -28,8 +29,9 @@ const Top = (props: topProps) =>
   return (
     <>
       {showOpening && <OpeningAnimation timeline={timeline} />}
+      {/* <Hoge/> */}
       <Header text="Top" />
-      <Welcome timeline={timeline} />
+      <Welcome />
     </>
   );
 };

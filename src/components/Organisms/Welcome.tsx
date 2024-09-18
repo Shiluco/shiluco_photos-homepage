@@ -6,13 +6,11 @@ import { useGSAP } from "@gsap/react";
 import welcomeImage from "../../assets/photos/Portrait/02.jpg";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
-type WelcomeProps = {
-  timeline: gsap.core.Timeline;
-};
 
-const Welcome = (props: WelcomeProps) =>
+
+const Welcome = () =>
 {
-  const { timeline } = props;
+  const timeline = gsap.timeline();
   const welcomeImageRef = useRef(null);
   const sideTextRef1 = useRef(null);
   const sideTextRef2 = useRef(null);
@@ -23,7 +21,7 @@ const Welcome = (props: WelcomeProps) =>
       welcomeImageRef.current,
       { opacity: 0.8 },
       { opacity: 1, duration: 0.4 },
-      "-=0.6"
+      "<"
     );
 
     timeline.fromTo(
@@ -103,7 +101,7 @@ const Welcome = (props: WelcomeProps) =>
             }}
             disableRipple
           >
-            <KeyboardArrowDownIcon sx={{ color: "black" }} />
+            <KeyboardArrowDownIcon  sx={{ color: "black" }} />
           </Button>
         </Box>
       </Box>
