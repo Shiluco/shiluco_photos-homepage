@@ -2,8 +2,8 @@ import  {  useEffect } from "react";
 import gsap from "gsap";
 import Welcome from "../Organisms/Welcome";
 import Header from "../templates/Hedder";
-import OpeningAnimation from "./OpeningAnimation";
-import Hoge from "./Hoge";
+import OpeningAnimation from "../templates/OpeningAnimation";
+// import Hoge from "./Hoge";
 
 
 type topProps = {
@@ -31,7 +31,7 @@ const Top = (props: topProps) =>
       {showOpening && <OpeningAnimation timeline={timeline} />}
       {/* <Hoge/> */}
       <Header text="Top" />
-      <Welcome />
+      <Welcome showOpening={showOpening} />
     </>
   );
 };

@@ -12,6 +12,7 @@ const OpeningAnimation = (props: OpeningAnimationProps) =>
   const { timeline } = props;
   const boxRef = useRef(null);  
   const textRef = useRef(null);
+  timeline.addLabel("start");
 
   useGSAP(() => {
     timeline.fromTo(

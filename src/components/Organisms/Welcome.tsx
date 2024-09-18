@@ -1,19 +1,29 @@
 import { Box, Button, Typography } from "@mui/material";
-import { useRef } from "react";
+import { useRef} from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 //file
-import welcomeImage from "../../assets/photos/Portrait/02.jpg";
+
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import welcomePhoto from "../../assets/photos/Portrait/01.jpg";
 
 
+type WelcomeProps = {
+  showOpening: boolean;
+};
 
-const Welcome = () =>
+
+const Welcome = (props:WelcomeProps) =>
 {
+  const { showOpening } = props;
   const timeline = gsap.timeline();
   const welcomeImageRef = useRef(null);
   const sideTextRef1 = useRef(null);
   const sideTextRef2 = useRef(null);
+  const arrowRef = useRef(null);
+
+  const position = showOpening ? "=+1.5" : "<";
+
 
   useGSAP(() => {
 
@@ -21,6 +31,13 @@ const Welcome = () =>
       welcomeImageRef.current,
       { opacity: 0.8 },
       { opacity: 1, duration: 0.4 },
+      position
+    );
+
+    timeline.fromTo(
+      welcomeImageRef.current,
+      { y: "-=5" },
+      { y: "0", duration: 0.5 },
       "<"
     );
 
@@ -36,6 +53,20 @@ const Welcome = () =>
       sideTextRef2.current,
       { clipPath: "inset(0 0 100% 0)" },
       { clipPath: "inset(0 0 0% 0)", duration: 1 },
+      "<"
+    );
+
+    timeline.fromTo(
+      arrowRef.current,
+      { y: "-=10" },
+      { y: "0", duration: 0.5 },
+      "<"
+    );
+
+    timeline.fromTo(
+      arrowRef.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 1, repeat: -1, yoyo: true },
       "<"
     );
   }, []);
@@ -62,8 +93,8 @@ const Welcome = () =>
 
           <img
             id="welcomeImage"
-            src={welcomeImage}
-            alt="welcomeImage"
+            src={welcomePhoto}
+            alt={welcomePhoto}
             ref={welcomeImageRef}
             style={{
               height: "90%",
@@ -86,11 +117,8 @@ const Welcome = () =>
           height="5vh"
         >
           <Button
-            onClick={() =>
-            {
-              console.log("scroll");
-              
-            }}
+            ref={arrowRef}
+            
             sx={{
               backgroundColor: "transparent",
               minWidth: 0,
@@ -101,7 +129,7 @@ const Welcome = () =>
             }}
             disableRipple
           >
-            <KeyboardArrowDownIcon  sx={{ color: "black" }} />
+            <KeyboardArrowDownIcon sx={{ color: "black" }} />
           </Button>
         </Box>
       </Box>
