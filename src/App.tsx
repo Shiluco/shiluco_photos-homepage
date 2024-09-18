@@ -5,7 +5,7 @@ import Top from './components/pages/Top'
 import About from './components/pages/About'
 import Contact from './components/pages/Contact'
 import All from './components/pages/gallery/All'
-import ClientWork from './components/pages/gallery/ClientWork'
+import ClientWork from './components/pages/gallery/Clientwork'
 import Portrait from './components/pages/gallery/Portrait'
 import Scenery from "./components/pages/gallery/Scenery";
 import { ThemeProvider } from "@emotion/react";

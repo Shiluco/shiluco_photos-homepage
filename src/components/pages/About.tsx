@@ -17,14 +17,27 @@ const Introduction = () =>
     aboutTimeline.fromTo(
       aboutIconRef.current,
       { opacity: 0 },
-      { opacity: 1, duration: 1 }
+      { opacity: 1, duration: 0.5}
+    );
+    aboutTimeline.fromTo(
+      aboutIconRef.current,
+      { x: "-=20"},
+      { x: "0", duration: 0.5 },
+      "<"
     );
     aboutTimeline.fromTo(
       aboutTextRef.current,
       { opacity: 0 },
-      { opacity: 1, duration: 1 },
+      { opacity: 1, duration: 0.5 },
       "<"
     );
+    aboutTimeline.fromTo(
+      aboutTextRef.current,
+      { x: "+=20" },
+      { x: "0", duration: 0.5 },
+      "<"
+    );
+
   }
     , []);
 
@@ -38,12 +51,21 @@ const Introduction = () =>
         height="90vh" // 画面全体の高さに合わせる
       >
         <Stack direction="row" spacing={2} alignItems="center">
-          <img ref={aboutIconRef} src={profile} alt="profile" style={{ width: "15vw" }} />
+          <img
+            ref={aboutIconRef}
+            src={profile}
+            alt="profile"
+            style={{ width: "15vw" }}
+          />
+          <Box sx={{ width: "1%" }}></Box>
           <Stack ref={aboutTextRef} direction="column" spacing={2}>
             <Typography variant="h4">
               こんにちは、Shiluco_photosです。
             </Typography>
-            <Typography variant="h5" sx={{ marginTop: "16px", paddingLeft:"4px",lineHeight:'35x' }}>
+            <Typography
+              variant="h5"
+              sx={{ marginTop: "16px", paddingLeft: "4px", lineHeight: "35x" }}
+            >
               このサイトは、私の写真を紹介するためのサイトです。
               <br />
               私は、日本の風景や建築物を中心に撮影しています。
