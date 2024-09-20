@@ -1,8 +1,14 @@
 import { Box, Stack, Typography } from "@mui/material";
-import usePageTransition from "../../hooks/usePageTransition";
+import { useNavigate } from "react-router-dom";
 
-const NavigationLinks = () => {
-  const { handleNext} = usePageTransition();
+
+const NavigationLinks = () =>
+{
+  const navigate = useNavigate();
+  const handleNext = (path: string) => { 
+    navigate(path);
+  }
+    
 
   return (
     <Box>

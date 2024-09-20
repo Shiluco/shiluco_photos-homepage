@@ -1,20 +1,29 @@
+//library
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 import { Box } from "@mui/material";
-import { useEffect, ReactNode } from "react";
+import { ReactNode, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import usePageTransition from "../hooks/usePageTransition"; // usePageTransition をインポート
 
 interface LayoutProps {
   children: ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const { pageRef, handleNext } = usePageTransition(); // usePageTransition を使用
+const Layout = (props: LayoutProps) =>
+{
+  const { children } = props;
+  const pageRef = useRef(null);
+  const pageTimeline = gsap.timeline();
   const location = useLocation();
 
-  useEffect(() => {
-    // ページ遷移時のエントリーアニメーション
-    handleNext(location.pathname); // 現在のパスを渡してアニメーション
-  }, [location.pathname]); // location.pathname の変更を監視
+  useGSAP(() => {
+    pageTimeline.fromTo(
+      pageRef.current,
+      { opacity: 0 },
+      { opacity: 1, duration: 5 }
+    )
+    
+  },[location.pathname]); 
 
   return (
     <Box
