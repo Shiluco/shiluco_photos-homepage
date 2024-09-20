@@ -15,6 +15,7 @@ import { ThemeProvider } from "@emotion/react";
 import theme from "./theme";
 import { CssBaseline } from "@mui/material";
 import { useState } from "react";
+import { PageProvider } from "./context/PageContext";
 
 // App コンポーネント
 function App() {
@@ -24,22 +25,24 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Router>
-        <Layout>
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <Top
-                  showOpening={showOpening}
-                  setShowOpening={setShowOpening}
-                />
-              }
-            />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/gallery" element={<Gallery />} />
-          </Routes>
-        </Layout>
+        <PageProvider>
+          <Layout>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Top
+                    showOpening={showOpening}
+                    setShowOpening={setShowOpening}
+                  />
+                }
+              />
+              <Route path="/about" element={<About />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/gallery" element={<Gallery />} />
+            </Routes>
+          </Layout>
+        </PageProvider>
       </Router>
     </ThemeProvider>
   );

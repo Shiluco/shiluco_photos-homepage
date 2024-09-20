@@ -35,6 +35,22 @@ const Contact = () => {
     
   }, []);
 
+    const handleMouseEnter = () => {
+      gsap.to(instaIconRef.current, {
+        scale: 1.05,
+        duration: 0.3,
+        ease: "power1.in",
+      });
+    };
+
+    const handleMouseLeave = () => {
+      gsap.to(instaIconRef.current, {
+        scale: 1,
+        duration: 0.3,
+        ease: "power1.out",
+      });
+    };
+
 
   return (
     <>
@@ -51,6 +67,8 @@ const Contact = () => {
             component="img"
             src={instaIcon}
             alt="instagram"
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             sx={{
               width: "100%", // 幅を調整
               height: "auto", // 高さを自動調整

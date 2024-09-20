@@ -1,12 +1,14 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { usePage } from "../../context/PageContext";
 
 
 const NavigationLinks = () =>
 {
-  const navigate = useNavigate();
-  const handleNext = (path: string) => { 
-    navigate(path);
+  const {  setIsPageOut,  setNewPath } = usePage();
+  const handleNext = (path: string) =>
+  { 
+    setIsPageOut(true);
+    setNewPath(path);
   }
     
 
