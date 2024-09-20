@@ -1,12 +1,21 @@
 import { Box, Stack, Typography } from "@mui/material";
 import { useTransition } from "../../context/TransitionContext";
+import {useNavigate} from "react-router-dom";
 
 const NavigationLinks = () => {
   const { setIsPageOut, setNewPath } = useTransition();
+  const navigate = useNavigate();
   const handleNext = (path: string) =>
   {
     setNewPath(path);
-    setIsPageOut(true);
+    if (path == "/gallery")
+    { 
+      setIsPageOut(true);
+    }
+    else
+    {
+      navigate(path);
+    }
   };
 
   return (

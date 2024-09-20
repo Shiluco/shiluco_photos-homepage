@@ -54,7 +54,7 @@ const Layout = ({ children }: LayoutProps) => {
   useGSAP(() => {
     const tl = gsap.timeline();
 
-    if (isPageIn) {
+    if (isPageIn ) {
       tl.fromTo(
         block1Ref.current,
         { y: "0%" },
