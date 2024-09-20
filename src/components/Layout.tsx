@@ -1,86 +1,118 @@
 // library
 import { ReactNode, useRef } from "react";
 import { Box } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { usePage } from "../context/PageContext";
+import { useTransition } from "../context/TransitionContext";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
 const Layout = ({ children }: LayoutProps) => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const { isPageOut, setIsPageOut, newPath,} = usePage();
+  const {firstLoad, isPageIn, setIsPageIn, isPageOut, setIsPageOut, newPath } =
+    useTransition();
 
   // アニメーションブロックの参照
   const block1Ref = useRef<HTMLDivElement>(null);
   const block2Ref = useRef<HTMLDivElement>(null);
   const block3Ref = useRef<HTMLDivElement>(null);
 
+  //初期化
+  useGSAP(() => {
+    const tl = gsap.timeline();
+    if (firstLoad) {
+      tl.to(
+        block1Ref.current,
+        {
+          y: "100%",
+          duration: 0,
+        }
+      );
+      tl.to(
+        block2Ref.current,
+        {
+          y: "100%",
+          duration: 0,
+        },
+        "<"
+      );
+      tl.to(
+        block3Ref.current,
+        {
+          y: "100%",
+          duration: 0,
+        },
+        "<"
+      );
+    }
+  }, [firstLoad]);
+
   //ページインアニメーション
   useGSAP(() => {
     const tl = gsap.timeline();
 
-    tl.fromTo(
-      block1Ref.current,
-      { y: "0%" }, 
-      {
-        y: "100%", 
-        duration: 0.6,
-        ease: "power2.in",
-      },
-      
-    );
-    tl.fromTo(
-      block2Ref.current,
-      { y: "0%" }, 
-      {
-        y: "100%", 
-        duration: 0.5,
-        ease: "power2.in",
-      },
-      "<"
-    );
-    tl.fromTo(
-      block3Ref.current,
-      { y: "0%" }, 
-      {
-        y: "100%", 
-        duration: 0.4,
-        ease: "power2.in",
-      },
-      "<"
-    );
-  }, [location.pathname]);
+    if (isPageIn) {
+      tl.fromTo(
+        block1Ref.current,
+        { y: "0%" },
+        {
+          y: "100%",
+          duration: 0.6,
+          ease: "power2.in",
+          onComplete: () => {
+            setIsPageIn(false);
+          },
+        }
+      );
+      tl.fromTo(
+        block2Ref.current,
+        { y: "0%" },
+        {
+          y: "100%",
+          duration: 0.5,
+          ease: "power2.in",
+        },
+        "<"
+      );
+      tl.fromTo(
+        block3Ref.current,
+        { y: "0%" },
+        {
+          y: "100%",
+          duration: 0.4,
+          ease: "power2.in",
+        },
+        "<"
+      );
+    }
+  }, [isPageIn]);
 
   //ページアウトアニメーション
   useGSAP(() => {
     const tl = gsap.timeline();
-    if (isPageOut)
-    {
-
+    if (isPageOut) {
       tl.fromTo(
         block3Ref.current,
-        { y: "100%" }, 
+        { y: "100%" },
         {
-          y: "0%", 
+          y: "0%",
           duration: 0.6,
           ease: "power2.in",
-          onComplete: () =>
-          {
-            navigate(newPath);
+          onComplete: () => {
             setIsPageOut(false);
-          }
+            navigate(newPath);
+            setIsPageIn(true);
+          },
         }
-    );
+      );
       tl.fromTo(
         block2Ref.current,
-        { y: "100%" }, 
+        { y: "100%" },
         {
-          y: "0%", 
+          y: "0%",
           duration: 0.5,
           ease: "power2.in",
         },
@@ -88,9 +120,9 @@ const Layout = ({ children }: LayoutProps) => {
       );
       tl.fromTo(
         block1Ref.current,
-        { y: "100%" }, 
+        { y: "100%" },
         {
-          y: "0%", 
+          y: "0%",
           duration: 0.4,
           ease: "power2.in",
         },
@@ -123,7 +155,7 @@ const Layout = ({ children }: LayoutProps) => {
           height: "100%",
           backgroundColor: "rgba(135, 206, 235, 1)", // お好みの色に変更可能
           zIndex: 1, // 他のコンテンツより上に表示
-          x: "-100%",
+          y: "100%",
         }}
       />
       <Box
@@ -136,7 +168,7 @@ const Layout = ({ children }: LayoutProps) => {
           height: "100%",
           backgroundColor: "rgba(255, 182, 193, 1)", // お好みの色に変更可能
           zIndex: 2, // 他のコンテンツより上に表示
-          x: "-100%",
+          y: "100%",
         }}
       />
       <Box
@@ -149,7 +181,7 @@ const Layout = ({ children }: LayoutProps) => {
           height: "100%",
           backgroundColor: "rgba(50, 205, 50, 1)", // お好みの色に変更可能
           zIndex: 3, // 他のコンテンツより上に表示
-          x: "-100%",
+          y: "100%",
         }}
       />
     </Box>

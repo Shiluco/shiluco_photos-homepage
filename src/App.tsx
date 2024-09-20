@@ -14,13 +14,10 @@ import Layout from "./components/Layout"; // Layout をインポート
 import { ThemeProvider } from "@emotion/react";
 import theme from "./theme";
 import { CssBaseline } from "@mui/material";
-import { useState } from "react";
-import { PageProvider } from "./context/PageContext";
+import { PageProvider } from "./context/TransitionContext";
 
 // App コンポーネント
 function App() {
-  const [showOpening, setShowOpening] = useState(true); // 初回のみ表示するための状態
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -28,15 +25,7 @@ function App() {
         <PageProvider>
           <Layout>
             <Routes>
-              <Route
-                path="/"
-                element={
-                  <Top
-                    showOpening={showOpening}
-                    setShowOpening={setShowOpening}
-                  />
-                }
-              />
+              <Route path="/" element={<Top />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/gallery" element={<Gallery />} />

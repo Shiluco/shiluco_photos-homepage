@@ -2,27 +2,24 @@ import { Box, Button, Typography } from "@mui/material";
 import { useRef} from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import { useTransition } from "../../context/TransitionContext";
 //file
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import welcomePhoto from "../../../public/photos/Portrait/02.jpg";
 
 
-type WelcomeProps = {
-  showOpening: boolean;
-};
 
-
-const Welcome = (props:WelcomeProps) =>
+const Welcome = () =>
 {
-  const { showOpening } = props;
+  const { firstLoad} = useTransition();
   const timeline = gsap.timeline();
   const welcomeImageRef = useRef(null);
   const sideTextRef1 = useRef(null);
   const sideTextRef2 = useRef(null);
   const arrowRef = useRef(null);
 
-  const position = showOpening ? "=+1.5" : "<";
+  const position = firstLoad? "=+1.5" : "<";
 
 
   useGSAP(() => {

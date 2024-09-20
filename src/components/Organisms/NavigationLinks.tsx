@@ -1,16 +1,13 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { usePage } from "../../context/PageContext";
+import { useTransition } from "../../context/TransitionContext";
 
-
-const NavigationLinks = () =>
-{
-  const {  setIsPageOut,  setNewPath } = usePage();
+const NavigationLinks = () => {
+  const { setIsPageOut, setNewPath } = useTransition();
   const handleNext = (path: string) =>
-  { 
-    setIsPageOut(true);
+  {
     setNewPath(path);
-  }
-    
+    setIsPageOut(true);
+  };
 
   return (
     <Box>

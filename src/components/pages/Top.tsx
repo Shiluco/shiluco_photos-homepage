@@ -3,35 +3,33 @@ import gsap from "gsap";
 import Welcome from "../Organisms/Welcome";
 import Header from "../templates/Hedder";
 import OpeningAnimation from "../templates/OpeningAnimation";
+import { useTransition } from "../../context/TransitionContext";
 // import Hoge from "./Hoge";
 
 
-type topProps = {
-  showOpening: boolean;
-  setShowOpening: (showOpening: boolean) => void;
-}; 
-const Top = (props: topProps) =>
+
+const Top = () =>
 {
-  const { showOpening, setShowOpening } = props;
+  const { firstLoad,setFirstLoad } = useTransition();
   
   const timeline = gsap.timeline();
 
   useEffect(() => {
-    if (showOpening)
+    if (firstLoad)
     {
       console.log("showOpening");
       timeline.eventCallback("onComplete", () => {
-        setShowOpening(false);
+        setFirstLoad(false);
       });
     }
   }, []);
 
   return (
     <>
-      {showOpening && <OpeningAnimation timeline={timeline} />}
+      {firstLoad && <OpeningAnimation timeline={timeline} />}
       {/* <Hoge/> */}
       <Header text="Top" />
-      <Welcome showOpening={showOpening} />
+      <Welcome />
     </>
   );
 };

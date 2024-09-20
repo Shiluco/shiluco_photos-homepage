@@ -1,10 +1,14 @@
 // PageContext.js
 import React, { createContext, useState, useContext } from "react";
 
-interface PageContextType {
+interface PageContextType
+{
+  firstLoad: boolean;
+  setFirstLoad: React.Dispatch<React.SetStateAction<boolean>>;
+  isPageIn: boolean;
+  setIsPageIn: React.Dispatch<React.SetStateAction<boolean>>;
   isPageOut: boolean;
   setIsPageOut: React.Dispatch<React.SetStateAction<boolean>>;
-  
   newPath: string;
   setNewPath: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -13,6 +17,10 @@ type PageContextProps = {
 };
 // コンテキストの作成
 const PageContext = createContext<PageContextType>({
+  firstLoad: true,
+  setFirstLoad: () => {},
+  isPageIn: false,
+  setIsPageIn: () => {},
   isPageOut: false,
   setIsPageOut: () => {},
   newPath: "",
@@ -23,12 +31,24 @@ const PageContext = createContext<PageContextType>({
 export const PageProvider = (props: PageContextProps) =>
 {
   const { children } = props;
+  const [firstLoad, setFirstLoad] = useState(true);
+  const [isPageIn, setIsPageIn] = useState(false);
   const [isPageOut, setIsPageOut] = useState(false);
   const [newPath, setNewPath] = useState("");
 
+
   return (
     <PageContext.Provider
-      value={{ isPageOut, setIsPageOut, newPath, setNewPath }}
+      value={{
+        firstLoad,
+        setFirstLoad,
+        isPageIn,
+        setIsPageIn,
+        isPageOut,
+        setIsPageOut,
+        newPath,
+        setNewPath,
+      }}
     >
       {children}
     </PageContext.Provider>
@@ -36,4 +56,4 @@ export const PageProvider = (props: PageContextProps) =>
 };
 
 // カスタムフックでコンテキストを利用しやすくする
-export const usePage = () => useContext(PageContext);
+export const useTransition = () => useContext(PageContext);
