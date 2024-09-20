@@ -153,7 +153,7 @@ const Layout = ({ children }: LayoutProps) => {
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundColor: "rgba(135, 206, 235, 1)", // お好みの色に変更可能
+          backgroundColor: "rgba(54, 69, 79, 1)", // お好みの色に変更可能
           zIndex: 1, // 他のコンテンツより上に表示
           y: "100%",
         }}
@@ -166,7 +166,7 @@ const Layout = ({ children }: LayoutProps) => {
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundColor: "rgba(255, 182, 193, 1)", // お好みの色に変更可能
+          backgroundColor: "rgba(192, 192, 192, 1)", // お好みの色に変更可能
           zIndex: 2, // 他のコンテンツより上に表示
           y: "100%",
         }}
@@ -179,7 +179,7 @@ const Layout = ({ children }: LayoutProps) => {
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundColor: "rgba(50, 205, 50, 1)", // お好みの色に変更可能
+          backgroundColor: "rgba(25, 25, 40, 1)", // お好みの色に変更可能
           zIndex: 3, // 他のコンテンツより上に表示
           y: "100%",
         }}

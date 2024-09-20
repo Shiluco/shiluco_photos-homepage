@@ -1,8 +1,5 @@
-export interface Photo {
-  id: string;
-  title: string;
-  scr: string;
-  uploadDate: Date;
-  sort: number;
-  description: string;
+export type Photo = {
+  id: number;
+  path: string;
+  tags: string[];
 }
