@@ -3,6 +3,7 @@ import { Photo } from "../../types/Photo";
 import { Box, Typography } from "@mui/material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,8 +13,8 @@ const PhotoGallery = () => {
   const pagesRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
+  //写真の読み込み
   useEffect(() => {
-    // Fetch photos.json from the public folder
     fetch("/photos.json")
       .then((response) => response.json())
       .then((data) => {
@@ -22,8 +23,8 @@ const PhotoGallery = () => {
       .catch((error) => console.error("Error fetching the JSON:", error));
   }, []);
 
-  useEffect(() => {
-    // Initialize GSAP after all images have loaded
+  // 横スクロールのアニメーション
+  useGSAP(() => {
     if (imagesLoaded === photos.length && photos.length > 0) {
       if (pagesRef.current && wrapperRef.current) {
         gsap.to(pagesRef.current, {
@@ -34,8 +35,10 @@ const PhotoGallery = () => {
             trigger: wrapperRef.current,
             start: "top top",
             end: () =>
-              `+=${pagesRef.current!.scrollWidth - wrapperRef.current!.clientWidth}`,
-            markers: true,
+              `+=${
+                pagesRef.current!.scrollWidth - wrapperRef.current!.clientWidth
+              }`,
+
             scrub: true,
             pin: true,
             invalidateOnRefresh: true,
@@ -55,13 +58,21 @@ const PhotoGallery = () => {
   return (
     <Box
       ref={wrapperRef}
-      sx={{ overflow: "hidden", width: "100vw", height: "100vh" }}
+      sx={{
+        overflow: "hidden",
+        width: "100vw",
+        height: "100vh",
+        display: "flex",
+        alignItems: "center", // これで中央揃え
+      }}
     >
       <Box
         ref={pagesRef}
         display="flex"
         flexDirection="row"
         sx={{ width: "max-content" }}
+        paddingLeft= "29vh"
+        paddingRight= "29vh"
       >
         {photos.map((photo) => (
           <Box key={photo.id} textAlign="center" sx={{ marginRight: "10px" }}>
@@ -70,9 +81,12 @@ const PhotoGallery = () => {
               src={photo.path}
               alt={`Photo ${photo.id}`}
               onLoad={handleImageLoad} // Track when each image loads
-              sx={{ width: "auto", height: "90vh" }}
+              sx={{ width: "auto", height: "70vh" ,
+              borderRadius: "2px",
+              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
+            }} 
             />
-            <Typography>Tags: {photo.tags.join(", ")}</Typography>
+            <Typography>{photo.tags.join(", ")}</Typography>
           </Box>
         ))}
       </Box>
