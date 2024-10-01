@@ -1,19 +1,15 @@
-import { Typography, Box } from "@mui/material";
+import {  Box } from "@mui/material";
 import ImageGallery from "../templates/ImageGallery";
 
 const Gallery = () => {
   return (
     <Box
       sx={{
-        backgroundColor: "rgba(0, 0, 0, 0.9)",
+        backgroundColor: "rgba(245, 245, 245, 0)",
         minHeight: "100vh",
-        padding: 2,
+        padding: 0,
       }}
     >
-      <Typography variant="h1" color="white">
-        Gallery
-      </Typography>
-
       <ImageGallery />
     </Box>
   );

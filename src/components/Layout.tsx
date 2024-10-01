@@ -17,8 +17,6 @@ const Layout = ({ children }: LayoutProps) => {
 
   // アニメーションブロックの参照
   const block1Ref = useRef<HTMLDivElement>(null);
-  const block2Ref = useRef<HTMLDivElement>(null);
-  const block3Ref = useRef<HTMLDivElement>(null);
 
   //初期化
   useGSAP(() => {
@@ -31,22 +29,7 @@ const Layout = ({ children }: LayoutProps) => {
           duration: 0,
         }
       );
-      tl.to(
-        block2Ref.current,
-        {
-          y: "100%",
-          duration: 0,
-        },
-        "<"
-      );
-      tl.to(
-        block3Ref.current,
-        {
-          y: "100%",
-          duration: 0,
-        },
-        "<"
-      );
+      
     }
   }, [firstLoad]);
 
@@ -67,26 +50,6 @@ const Layout = ({ children }: LayoutProps) => {
           },
         }
       );
-      tl.fromTo(
-        block2Ref.current,
-        { y: "0%" },
-        {
-          y: "100%",
-          duration: 0.5,
-          ease: "power2.in",
-        },
-        "<"
-      );
-      tl.fromTo(
-        block3Ref.current,
-        { y: "0%" },
-        {
-          y: "100%",
-          duration: 0.4,
-          ease: "power2.in",
-        },
-        "<"
-      );
     }
   }, [isPageIn]);
 
@@ -95,7 +58,7 @@ const Layout = ({ children }: LayoutProps) => {
     const tl = gsap.timeline();
     if (isPageOut) {
       tl.fromTo(
-        block3Ref.current,
+        block1Ref.current,
         { y: "100%" },
         {
           y: "0%",
@@ -108,26 +71,7 @@ const Layout = ({ children }: LayoutProps) => {
           },
         }
       );
-      tl.fromTo(
-        block2Ref.current,
-        { y: "100%" },
-        {
-          y: "0%",
-          duration: 0.5,
-          ease: "power2.in",
-        },
-        "<"
-      );
-      tl.fromTo(
-        block1Ref.current,
-        { y: "100%" },
-        {
-          y: "0%",
-          duration: 0.4,
-          ease: "power2.in",
-        },
-        "<"
-      );
+      
     }
   }, [isPageOut]);
 
@@ -153,37 +97,12 @@ const Layout = ({ children }: LayoutProps) => {
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundColor: "rgba(54, 69, 79, 1)", // お好みの色に変更可能
+          backgroundColor: "rgba(150, 69, 79, 1)", // お好みの色に変更可能
           zIndex: 1, // 他のコンテンツより上に表示
           y: "100%",
         }}
       />
-      <Box
-        ref={block2Ref}
-        sx={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          backgroundColor: "rgba(192, 192, 192, 1)", // お好みの色に変更可能
-          zIndex: 2, // 他のコンテンツより上に表示
-          y: "100%",
-        }}
-      />
-      <Box
-        ref={block3Ref}
-        sx={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-          backgroundColor: "rgba(25, 25, 40, 1)", // お好みの色に変更可能
-          zIndex: 3, // 他のコンテンツより上に表示
-          y: "100%",
-        }}
-      />
+      
     </Box>
   );
 };
