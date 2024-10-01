@@ -1,76 +1,24 @@
 import { supabase } from './supabaseClient';
 
-//サインアップ処理
-export const signUp = async (
-  email: string,
-  password: string,
-  name: string,
-  role: string = "user"
-) => {
-  const { data, error } = await supabase.auth.signUp({
-    email: email,
-    password: password,
-    options: {
-      data: {
-        name: name,
-        role: role,
-      },
-    },
-  });
-  if (error) {
-    throw error;
-  }
-  return data;
-};
-
-//ログイン処理
-export const login = async (email: string, password: string) => {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: email,
-    password: password,
-  });
-  if (error) {
-    throw error;
-  }
-  return data;
-};
-
-//ログアウト処理
-export const logout = async () => {
-  const { error } = await supabase.auth.signOut();
-  if (error) {
-    throw error;
-  }
-};
+type getPhotoFromStorageType = {
+  bucketName: string;
+  photoPath: string;
+}
 
 
-//登録情報変更処理
-export const updateUser = async (
-  email: string,
-  password: string,
-  name: string,
-  role: string = "user"
-) => {
-  const { data, error } = await supabase.auth.updateUser({
-    email: email,
-    password: password,
-    data: {
-      name: name,
-      role: role,
-    },
-  });
-  if (error) {
-    throw error;
-  }
-  return data;
-};
+export const getPhotoFromStorage = async (props: getPhotoFromStorageType) =>
+{
+  const { bucketName, photoPath } = props;
+  const { data, error } = await supabase.storage
+    .from(bucketName)
+    .download(photoPath); // バケット名とパスを指定
 
-//パスワードリセット処理
-export const resetPassword = async (email: string) => {
-  const { error } = await supabase.auth.resetPasswordForEmail(email, {
-  redirectTo: 'https://example.com/account/update-password',
-});
   if (error) {
-    throw error;
+    console.error("写真の取得に失敗しました:", error);
+    return null;
   }
+
+  // Blob URLに変換して画像を表示できるようにする
+  const url = URL.createObjectURL(data);
+  return url;
 };
