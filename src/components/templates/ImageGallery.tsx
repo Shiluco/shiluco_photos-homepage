@@ -4,6 +4,7 @@ import { Box, Typography } from "@mui/material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
+import { fetchPhotoURL, fetchTable } from "../../service/photoService";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,6 +23,19 @@ const PhotoGallery = () => {
       })
       .catch((error) => console.error("Error fetching the JSON:", error));
   }, []);
+
+  useEffect(() =>
+  {
+    fetchTable("photo").then((data) => {
+      console.log(data);
+    });
+    fetchPhotoURL("photos", "ClientWork/02.jpeg").then((data) =>
+    {
+      console.log(data);
+    }
+    );
+  }
+  , []);
 
   // 横スクロールのアニメーション
   useGSAP(() => {
