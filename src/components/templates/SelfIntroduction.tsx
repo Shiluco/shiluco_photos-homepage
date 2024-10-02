@@ -1,5 +1,7 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { useAppDispatch, useAppSelector } from "../../../store";
+import { fetchUserProfile } from "../../../store/userProfileSlice";
 import { Box, Stack, Typography } from '@mui/material';
 import profile from '../../assets/profile.png'; 
 import { useGSAP } from '@gsap/react';
@@ -8,6 +10,15 @@ const SelfIntroduction = () => {
   const aboutIconRef = useRef(null);
   const aboutTextRef = useRef(null);
   const aboutTimeline = gsap.timeline();
+
+  const dispatch = useAppDispatch();
+  const { introduction_header, introduction, status, error } = useAppSelector(
+    (state) => state.userProfile
+  );
+  
+  useEffect(() => {
+    dispatch(fetchUserProfile());
+  }, [dispatch]);
 
   useGSAP(() => {
     aboutTimeline.fromTo(
@@ -53,16 +64,12 @@ const SelfIntroduction = () => {
         />
         <Box sx={{ width: "1%" }}></Box>
         <Stack ref={aboutTextRef} direction="column" spacing={2}>
-          <Typography variant="h4">こんにちは、Shiluco_photosです。</Typography>
+          <Typography variant="h4">{introduction_header}</Typography>
           <Typography
             variant="h5"
             sx={{ marginTop: "16px", paddingLeft: "4px", lineHeight: "35px" }}
           >
-            このサイトは、私の写真を紹介するためのサイトです。
-            <br />
-            私は、日本の風景や建築物を中心に撮影しています。
-            <br />
-            このサイトを通じて、私の写真を楽しんでいただければ幸いです。
+            {introduction}
           </Typography>
         </Stack>
       </Stack>

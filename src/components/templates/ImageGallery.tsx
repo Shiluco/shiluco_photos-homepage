@@ -4,7 +4,7 @@ import { Box, Typography } from "@mui/material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { fetchPhotoURL, fetchTable } from "../../service/photoService";
+import { fetchPhotoURL, fetchTable } from "../../../service/supabaseService";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,18 +24,14 @@ const PhotoGallery = () => {
       .catch((error) => console.error("Error fetching the JSON:", error));
   }, []);
 
-  useEffect(() =>
-  {
+  useEffect(() => {
     fetchTable("photo").then((data) => {
       console.log(data);
     });
-    fetchPhotoURL("photos", "ClientWork/02.jpeg").then((data) =>
-    {
+    fetchPhotoURL("photos", "ClientWork/02.jpeg").then((data) => {
       console.log(data);
-    }
-    );
-  }
-  , []);
+    });
+  }, []);
 
   // 横スクロールのアニメーション
   useGSAP(() => {
@@ -85,8 +81,8 @@ const PhotoGallery = () => {
         display="flex"
         flexDirection="row"
         sx={{ width: "max-content" }}
-        paddingLeft= "29vh"
-        paddingRight= "29vh"
+        paddingLeft="29vh"
+        paddingRight="29vh"
       >
         {photos.map((photo) => (
           <Box key={photo.id} textAlign="center" sx={{ marginRight: "10px" }}>
@@ -95,10 +91,12 @@ const PhotoGallery = () => {
               src={photo.path}
               alt={`Photo ${photo.id}`}
               onLoad={handleImageLoad} // Track when each image loads
-              sx={{ width: "auto", height: "70vh" ,
-              borderRadius: "2px",
-              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
-            }} 
+              sx={{
+                width: "auto",
+                height: "70vh",
+                borderRadius: "2px",
+                boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
+              }}
             />
             <Typography>{photo.tags.join(", ")}</Typography>
           </Box>
