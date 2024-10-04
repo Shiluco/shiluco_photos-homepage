@@ -1,24 +1,18 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { useAppDispatch, useAppSelector } from "../../../store";
-import { fetchUserProfile } from "../../../store/userProfileSlice";
-import { Box, Stack, Typography } from '@mui/material';
-import profile from '../../assets/profile.png'; 
-import { useGSAP } from '@gsap/react';
+import { useRef } from "react";
+import gsap from "gsap";
+import { useAppSelector } from "../../../store";
+import { Box, Stack, Typography } from "@mui/material";
+import profile from "../../assets/profile.png";
+import { useGSAP } from "@gsap/react";
+import React from "react";
 
 const SelfIntroduction = () => {
   const aboutIconRef = useRef(null);
   const aboutTextRef = useRef(null);
   const aboutTimeline = gsap.timeline();
-
-  const dispatch = useAppDispatch();
-  const { introduction_header, introduction, status, error } = useAppSelector(
+  const { introduction_header, introduction } = useAppSelector(
     (state) => state.userProfile
   );
-  
-  useEffect(() => {
-    dispatch(fetchUserProfile());
-  }, [dispatch]);
 
   useGSAP(() => {
     aboutTimeline.fromTo(
@@ -46,7 +40,6 @@ const SelfIntroduction = () => {
     );
   }, []);
 
-
   return (
     <Box
       display="flex"
@@ -69,7 +62,14 @@ const SelfIntroduction = () => {
             variant="h5"
             sx={{ marginTop: "16px", paddingLeft: "4px", lineHeight: "35px" }}
           >
-            {introduction}
+            <Box>
+              {introduction.split("\n").map((line, index) => (
+                <React.Fragment key={index}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
+            </Box>
           </Typography>
         </Stack>
       </Stack>

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Photo } from "../../types/Photo";
+import { Photo } from "../../../types/Photo";
 import { Box, Typography } from "@mui/material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -98,7 +98,6 @@ const PhotoGallery = () => {
                 boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
               }}
             />
-            <Typography>{photo.tags.join(", ")}</Typography>
           </Box>
         ))}
       </Box>

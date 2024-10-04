@@ -1,10 +1,12 @@
 // library
-import { ReactNode, useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useTransition } from "../context/TransitionContext";
+import { useAppDispatch } from "../../store";
+import { fetchUserProfile } from "../../store/userProfileSlice";
 
 interface LayoutProps {
   children: ReactNode;
@@ -14,9 +16,15 @@ const Layout = ({ children }: LayoutProps) => {
   const navigate = useNavigate();
   const {firstLoad, isPageIn, setIsPageIn, isPageOut, setIsPageOut, newPath } =
     useTransition();
+  const dispatch = useAppDispatch();
 
   // アニメーションブロックの参照
   const block1Ref = useRef<HTMLDivElement>(null);
+
+  // ユーザープロファイルの取得
+  useEffect(() => {
+    dispatch(fetchUserProfile());
+  }, [dispatch]);
 
   //初期化
   useGSAP(() => {
