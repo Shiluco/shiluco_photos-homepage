@@ -28,9 +28,7 @@ const Layout = ({ children }: LayoutProps) => {
     dispatch(fetchPhotoTable()).then((result) => {
       console.log("fetchPhotoTable:", result);
     });
-    dispatch(fetchAllPhotoURLs()).then((result) => {
-      console.log("fetchAllPhotoURLs:", result);
-    });
+    dispatch(fetchAllPhotoURLs());
   }, [dispatch]);
 
   //初期化

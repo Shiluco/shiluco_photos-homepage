@@ -34,7 +34,7 @@ export const fetchPhotoURL = async (bucket:string,path: string) => {
     .from(bucket)
     .getPublicUrl(path);
 
-  console.log("Public URL:", data.publicUrl);
+  // console.log("Public URL:", data.publicUrl);
 
   return data; // 取得したデータを返す
 };

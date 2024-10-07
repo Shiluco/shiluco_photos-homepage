@@ -72,27 +72,29 @@ const PhotoGallery = () => {
         paddingRight="29vh"
       >
         {photo &&
-          photo.map((photo: Photo) => (
-            <Box
-              key={photo.index}
-              textAlign="center"
-              sx={{ marginRight: "10px" }}
-            >
+          [...photo] // 配列のコピーを作成
+            .sort((a, b) => a.index - b.index) // index順にソート
+            .map((photo: Photo) => (
               <Box
-                component="img"
-                src={photo.url}
-                alt={`Photo ${photo.id}`}
-                onLoad={handleImageLoad} // Track when each image loads
-                sx={{
-                  width: "auto",
-                  height: "70vh",
-                  borderRadius: "2px",
-                  boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
-                }}
-              />
-              <Box>{photo.description}</Box>
-            </Box>
-          ))}
+                key={photo.index}
+                textAlign="center"
+                sx={{ marginRight: "10px" }}
+              >
+                <Box
+                  component="img"
+                  src={photo.url}
+                  alt={`Photo ${photo.id}`}
+                  onLoad={handleImageLoad} // Track when each image loads
+                  sx={{
+                    width: "auto",
+                    height: "70vh",
+                    borderRadius: "2px",
+                    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
+                  }}
+                />
+                <Box>{photo.description}</Box>
+              </Box>
+            ))}
       </Box>
     </Box>
   );
