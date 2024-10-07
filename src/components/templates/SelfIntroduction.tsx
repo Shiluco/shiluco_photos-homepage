@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import gsap from "gsap";
-import { useAppSelector } from "../../../store";
+import { useAppSelector } from "../../../store/store";
 import { Box, Stack, Typography } from "@mui/material";
 import profile from "../../assets/profile.png";
 import { useGSAP } from "@gsap/react";

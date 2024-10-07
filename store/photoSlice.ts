@@ -1,9 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import {} from "../service/supabaseService";
+import { fetchPhotoURL } from "../service/supabaseService";
 
-import { Photo } from "../types/photo";
+import { Photo } from "../types/Photo";
 import { fetchTable } from "../service/supabaseService";
-
 
 // ステートの型定義
 interface PhotoState {
@@ -31,36 +30,44 @@ export const fetchPhotoTable = createAsyncThunk(
   }
 );
 
-
 export const fetchAllPhotoURLs = createAsyncThunk(
-  "photoSlice/fetchAllPhotoURLs", // アクション名を変更
+  "photoSlice/fetchAllPhotoURLs",
   async () => {
-    const data = await fetchTable("photo"); // "photo"テーブルから全ての写真データを取得
-    return data.map((photo) => photo.path); // 取得したデータからpathだけを取り出して配列にする
+    const data = await fetchTable("photo"); // 全ての写真データを取得
+    if (data.length > 0) {
+      const photoURLs = await Promise.all(
+        data.map(async (photo: Photo) => {
+          const url = await fetchPhotoURL("photos", photo.path);
+          
+          return { ...photo, url: url.publicUrl };
+        })
+      );
+      console.log("photoURLs:", photoURLs);
+      return photoURLs; // 取得した全てのエントリを返す
+    } else {
+      throw new Error("No photo data found");
+    }
   }
 );
 
 
 // createSliceでスライスを作成
 export const photoSlice = createSlice({
-  name: "photoSlice",
+  name: "photo",
   initialState,
   reducers: {}, // 今回は同期的なアクションは定義しない
   extraReducers: (builder) => {
     builder
       //fetchPhotoTable
-      .addCase(fetchPhotoTable.pending, (state) =>
-      {
+      .addCase(fetchPhotoTable.pending, (state) => {
         state.status = "loading";
         state.error = null;
       })
-      .addCase(fetchPhotoTable.fulfilled, (state, action) =>
-      {
+      .addCase(fetchPhotoTable.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.photo = action.payload;
       })
-      .addCase(fetchPhotoTable.rejected, (state, action) =>
-      {
+      .addCase(fetchPhotoTable.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "Failed to fetch user profile";
       })
@@ -71,7 +78,7 @@ export const photoSlice = createSlice({
       })
       .addCase(fetchAllPhotoURLs.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.photo = action.payload;
+        state.photo = action.payload || [];
       })
       .addCase(fetchAllPhotoURLs.rejected, (state, action) => {
         state.status = "failed";
@@ -79,3 +86,5 @@ export const photoSlice = createSlice({
       });
   },
 });
+
+export default photoSlice.reducer;

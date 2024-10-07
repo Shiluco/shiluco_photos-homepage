@@ -16,7 +16,7 @@ import theme from "./theme";
 import { CssBaseline } from "@mui/material";
 import { PageProvider } from "./context/TransitionContext";
 import { Provider } from "react-redux";
-import { store } from "../store";
+import { store } from "../store/store";
 
 // App コンポーネント
 function App() {

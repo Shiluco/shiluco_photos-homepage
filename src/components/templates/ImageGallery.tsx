@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Photo } from "../../../types/Photo";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
-import { fetchPhotoURL, fetchTable } from "../../../service/supabaseService";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
+import { fetchAllPhotoURLs } from "../../../store/photoSlice";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -13,24 +14,28 @@ const PhotoGallery = () => {
   const [imagesLoaded, setImagesLoaded] = useState(0);
   const pagesRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const dispatch = useAppDispatch();
 
-  //写真の読み込み
-  useEffect(() => {
-    fetch("/photos.json")
-      .then((response) => response.json())
-      .then((data) => {
-        setPhotos(data.photos);
-      })
-      .catch((error) => console.error("Error fetching the JSON:", error));
-  }, []);
+  const { photo } = useAppSelector((state) => state.photo);
 
-  useEffect(() => {
-    fetchTable("photo").then((data) => {
-      console.log(data);
+  // //写真の読み込み
+  // useEffect(() => {
+  //   fetch("/photos.json")
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setPhotos(data.photos);
+  //     })
+  //     .catch((error) => console.error("Error fetching the JSON:", error));
+  // }, []);
+
+  useEffect(() =>
+  {
+    dispatch(fetchAllPhotoURLs()).then((result) => {
+      console.log("fetchAllPhotoURLs:", result);
     });
-    fetchPhotoURL("photos", "ClientWork/02.jpeg").then((data) => {
-      console.log(data);
-    });
+    if (photo) {
+      setPhotos(photo);
+    }
   }, []);
 
   // 横スクロールのアニメーション
@@ -88,7 +93,7 @@ const PhotoGallery = () => {
           <Box key={photo.id} textAlign="center" sx={{ marginRight: "10px" }}>
             <Box
               component="img"
-              src={photo.path}
+              src={photo.url}
               alt={`Photo ${photo.id}`}
               onLoad={handleImageLoad} // Track when each image loads
               sx={{

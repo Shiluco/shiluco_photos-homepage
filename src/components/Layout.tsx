@@ -5,8 +5,9 @@ import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useTransition } from "../context/TransitionContext";
-import { useAppDispatch } from "../../store";
+import { useAppDispatch } from "../../store/store";
 import { fetchUserProfile } from "../../store/userProfileSlice";
+import { fetchPhotoTable } from "../../store/photoSlice";
 
 interface LayoutProps {
   children: ReactNode;
@@ -14,7 +15,7 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   const navigate = useNavigate();
-  const {firstLoad, isPageIn, setIsPageIn, isPageOut, setIsPageOut, newPath } =
+  const { firstLoad, isPageIn, setIsPageIn, isPageOut, setIsPageOut, newPath } =
     useTransition();
   const dispatch = useAppDispatch();
 
@@ -24,20 +25,19 @@ const Layout = ({ children }: LayoutProps) => {
   // ユーザープロファイルの取得
   useEffect(() => {
     dispatch(fetchUserProfile());
+    dispatch(fetchPhotoTable()).then((result) => {
+      console.log("fetchPhotoTable:", result);
+    });
   }, [dispatch]);
 
   //初期化
   useGSAP(() => {
     const tl = gsap.timeline();
     if (firstLoad) {
-      tl.to(
-        block1Ref.current,
-        {
-          y: "100%",
-          duration: 0,
-        }
-      );
-      
+      tl.to(block1Ref.current, {
+        y: "100%",
+        duration: 0,
+      });
     }
   }, [firstLoad]);
 
@@ -45,7 +45,7 @@ const Layout = ({ children }: LayoutProps) => {
   useGSAP(() => {
     const tl = gsap.timeline();
 
-    if (isPageIn ) {
+    if (isPageIn) {
       tl.fromTo(
         block1Ref.current,
         { y: "0%" },
@@ -79,7 +79,6 @@ const Layout = ({ children }: LayoutProps) => {
           },
         }
       );
-      
     }
   }, [isPageOut]);
 
@@ -110,7 +109,6 @@ const Layout = ({ children }: LayoutProps) => {
           y: "100%",
         }}
       />
-      
     </Box>
   );
 };
