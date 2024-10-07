@@ -7,7 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { useTransition } from "../context/TransitionContext";
 import { useAppDispatch } from "../../store/store";
 import { fetchUserProfile } from "../../store/userProfileSlice";
-import { fetchPhotoTable } from "../../store/photoSlice";
+import { fetchAllPhotoURLs, fetchPhotoTable } from "../../store/photoSlice";
 
 interface LayoutProps {
   children: ReactNode;
@@ -27,6 +27,9 @@ const Layout = ({ children }: LayoutProps) => {
     dispatch(fetchUserProfile());
     dispatch(fetchPhotoTable()).then((result) => {
       console.log("fetchPhotoTable:", result);
+    });
+    dispatch(fetchAllPhotoURLs()).then((result) => {
+      console.log("fetchAllPhotoURLs:", result);
     });
   }, [dispatch]);
 
