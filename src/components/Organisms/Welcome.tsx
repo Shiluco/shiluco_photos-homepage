@@ -76,16 +76,17 @@ const Welcome = () => {
     );
   }, []);
 
-  useGSAP(() => {
-    const timeline = gsap.timeline();
-    if (!firstLoad) {
-      timeline.fromTo(
-        welcomeImageRef.current,
-        { opacity: 0.4 },
-        { opacity: 1, duration: 0.3 }
-      );
-    }
-  }, [topContentIndex]);
+useGSAP(() => {
+  const timeline = gsap.timeline();
+  if (!firstLoad) {
+    timeline.fromTo(
+      welcomeImageRef.current,
+      { opacity: 0.9, y: 30 }, // 元のyの値を指定
+      { opacity: 1, y: 0, duration: 0.5 } // y: 0にアニメーション
+    );
+  }
+}, [topContentIndex]);
+
 
   return (
     <>
