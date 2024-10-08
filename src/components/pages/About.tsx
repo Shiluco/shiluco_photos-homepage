@@ -6,7 +6,7 @@ import SelfIntroduction from "../templates/SelfIntroduction";
 const About = () => {
   return (
     <>
-      <Header text="About" />
+      <Header/>
       <SelfIntroduction />
     </>
   );

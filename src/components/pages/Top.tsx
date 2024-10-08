@@ -24,7 +24,7 @@ const Top = () => {
     <>
       {firstLoad && <OpeningAnimation timeline={timeline} />}
       {/* <Hoge/> */}
-      <Header text="Top" />
+      <Header/>
       <Welcome />
     </>
   );
