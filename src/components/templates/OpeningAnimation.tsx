@@ -1,6 +1,5 @@
 import  { useRef } from "react";
 import { Typography, Box } from "@mui/material";
-import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 
 type OpeningAnimationProps = {
