@@ -14,7 +14,7 @@ import Layout from "./components/Layout"; // Layout をインポート
 import { ThemeProvider } from "@emotion/react";
 import theme from "./theme";
 import { CssBaseline } from "@mui/material";
-import { PageProvider } from "./context/TransitionContext";
+import { PageProvider } from "../context/TransitionContext";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
 

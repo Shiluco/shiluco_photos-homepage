@@ -1,20 +1,16 @@
 import { Box, Button, Typography } from "@mui/material";
-import { useRef, useState} from "react";
+import { useRef, useState } from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useTransition } from "../../context/TransitionContext";
+import { useTransition } from "../../../context/TransitionContext";
 //file
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import { useAppSelector } from "../../../store/store";
 
+const Welcome = () => {
+  const { firstLoad } = useTransition();
 
-
-
-const Welcome = () =>
-{
-  const { firstLoad} = useTransition();
-  const timeline = gsap.timeline();
   const welcomeImageRef = useRef(null);
   const sideTextRef1 = useRef(null);
   const sideTextRef2 = useRef(null);
@@ -26,21 +22,16 @@ const Welcome = () =>
   console.log(topContentPhotos);
 
   const topContentPhotosLength = topContentPhotos.length;
-  const [topContentIndex, setTopContentIndex] = useState(0);  
+  const [topContentIndex, setTopContentIndex] = useState(0);
 
-  const incriementTopContentIndex = () =>
-  {
+  const incriementTopContentIndex = () => {
     setTopContentIndex((prev) => (prev + 1) % topContentPhotosLength);
-  }
-  
+  };
 
-
-
-  const position = firstLoad? "=+1.5" : "<";
-
-  
+  const position = firstLoad ? "=+1.5" : "<";
 
   useGSAP(() => {
+    const timeline = gsap.timeline();
 
     timeline.fromTo(
       welcomeImageRef.current,
@@ -63,7 +54,6 @@ const Welcome = () =>
       "<"
     );
 
-    
     timeline.fromTo(
       sideTextRef2.current,
       { clipPath: "inset(0 0 100% 0)" },
@@ -86,7 +76,16 @@ const Welcome = () =>
     );
   }, []);
 
-  
+  useGSAP(() => {
+    const timeline = gsap.timeline();
+    if (!firstLoad) {
+      timeline.fromTo(
+        welcomeImageRef.current,
+        { opacity: 0.4 },
+        { opacity: 1, duration: 0.3 }
+      );
+    }
+  }, [topContentIndex]);
 
   return (
     <>
@@ -108,10 +107,14 @@ const Welcome = () =>
             Shiluco
           </Typography>
 
-            <Box
+          <Box
             component="img"
             id="welcomeImage"
-            src={topContentPhotos.length > 0 ? topContentPhotos[topContentIndex].url : ""}
+            src={
+              topContentPhotos.length > 0
+                ? topContentPhotos[topContentIndex].url
+                : ""
+            }
             alt="welcome"
             ref={welcomeImageRef}
             sx={{
@@ -119,7 +122,7 @@ const Welcome = () =>
               borderRadius: "2px",
               boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
             }}
-            />
+          />
           <Typography
             variant="h1"
             ref={sideTextRef2}

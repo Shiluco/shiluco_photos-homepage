@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useTransition } from "../context/TransitionContext";
+import { useTransition } from "../../context/TransitionContext";
 import { useAppDispatch } from "../../store/store";
 import { fetchUserProfile } from "../../store/userProfileSlice";
 import { fetchAllPhotoURLs, fetchPhotoTable } from "../../store/photoSlice";
