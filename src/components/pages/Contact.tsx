@@ -54,7 +54,7 @@ const Contact = () => {
 
   return (
     <>
-      <Header text="Contact" />
+      <Header/>
       <Box
         display="flex"
         justifyContent="center"
