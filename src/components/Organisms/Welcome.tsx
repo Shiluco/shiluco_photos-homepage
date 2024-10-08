@@ -1,12 +1,13 @@
 import { Box, Button, Typography } from "@mui/material";
-import { useRef} from "react";
+import { useRef, useState} from "react";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useTransition } from "../../context/TransitionContext";
 //file
 
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import welcomePhoto from "../../../public/photos/Portrait/02.jpg";
+import { useAppSelector } from "../../../store/store";
+
 
 
 
@@ -19,8 +20,25 @@ const Welcome = () =>
   const sideTextRef2 = useRef(null);
   const arrowRef = useRef(null);
 
+  const { photo } = useAppSelector((state) => state.photo);
+  console.log(photo);
+  const topContentPhotos = photo ? photo.filter((p) => p.is_top_content) : [];
+  console.log(topContentPhotos);
+
+  const topContentPhotosLength = topContentPhotos.length;
+  const [topContentIndex, setTopContentIndex] = useState(0);  
+
+  const incriementTopContentIndex = () =>
+  {
+    setTopContentIndex((prev) => (prev + 1) % topContentPhotosLength);
+  }
+  
+
+
+
   const position = firstLoad? "=+1.5" : "<";
 
+  
 
   useGSAP(() => {
 
@@ -90,17 +108,18 @@ const Welcome = () =>
             Shiluco
           </Typography>
 
-          <img
+            <Box
+            component="img"
             id="welcomeImage"
-            src={welcomePhoto}
-            alt={welcomePhoto}
+            src={topContentPhotos.length > 0 ? topContentPhotos[topContentIndex].url : ""}
+            alt="welcome"
             ref={welcomeImageRef}
-            style={{
+            sx={{
               height: "90%",
               borderRadius: "2px",
               boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
             }}
-          />
+            />
           <Typography
             variant="h1"
             ref={sideTextRef2}
@@ -117,7 +136,7 @@ const Welcome = () =>
         >
           <Button
             ref={arrowRef}
-            
+            onClick={incriementTopContentIndex}
             sx={{
               backgroundColor: "transparent",
               minWidth: 0,
