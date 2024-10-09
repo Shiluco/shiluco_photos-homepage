@@ -11,12 +11,17 @@ import About from "./components/pages/About";
 import Contact from "./components/pages/Contact";
 import Gallery from "./components/pages/Gallery";
 import Layout from "./components/Layout"; // Layout をインポート
+import Edit from "./components/pages/Edit";
+import EditProfile from "./components/pages/EditProfile";
+import EditPhoto from "./components/pages/EditPhoto";
+
 import { ThemeProvider } from "@emotion/react";
 import theme from "./theme";
 import { CssBaseline } from "@mui/material";
 import { PageProvider } from "../context/TransitionContext";
 import { Provider } from "react-redux";
 import { store } from "../store/store";
+
 
 // App コンポーネント
 function App() {
@@ -32,6 +37,9 @@ function App() {
                 <Route path="/about" element={<About />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/gallery" element={<Gallery />} />
+                <Route path="/edit" element={<Edit />} />
+                <Route path="/edit/profile" element={<EditProfile />} />
+                <Route path="/edit/photo" element={<EditPhoto />} />
               </Routes>
             </Layout>
           </PageProvider>
