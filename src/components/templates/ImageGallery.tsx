@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { Photo } from "../../../types/Photo";
+import { Photo } from "../../../types/photo";
 import { Box } from "@mui/material";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";

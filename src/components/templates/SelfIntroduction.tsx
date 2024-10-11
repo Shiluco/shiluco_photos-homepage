@@ -2,7 +2,7 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useAppSelector } from "../../../store/store";
 import { Box, Stack, Typography } from "@mui/material";
-import profile from "../../assets/profile.png";
+import profileIcon from "../../assets/profile.png";
 import { useGSAP } from "@gsap/react";
 import React from "react";
 
@@ -10,7 +10,7 @@ const SelfIntroduction = () => {
   const aboutIconRef = useRef(null);
   const aboutTextRef = useRef(null);
   const aboutTimeline = gsap.timeline();
-  const { introduction_header, introduction } = useAppSelector(
+  const { profile } = useAppSelector(
     (state) => state.userProfile
   );
 
@@ -50,20 +50,20 @@ const SelfIntroduction = () => {
       <Stack direction="row" spacing={2} alignItems="center">
         <img
           ref={aboutIconRef}
-          src={profile}
+          src={profileIcon}
           alt="profile"
           className="profile-image"
           style={{ width: "15vw", height: "auto", maxHeight: "100%" }}
         />
         <Box sx={{ width: "1%" }}></Box>
         <Stack ref={aboutTextRef} direction="column" spacing={2}>
-          <Typography variant="h4">{introduction_header}</Typography>
+          <Typography variant="h4">{profile.introduction_header}</Typography>
           <Typography
             variant="h5"
             sx={{ marginTop: "16px", paddingLeft: "4px", lineHeight: "35px" }}
           >
             <Box>
-              {introduction.split("\n").map((line, index) => (
+              {profile.introduction.split("\n").map((line, index) => (
                 <React.Fragment key={index}>
                   {line}
                   <br />
