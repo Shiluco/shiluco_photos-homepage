@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { fetchPhotoURL } from "../service/supabaseService";
 
-import { Photo } from "../types/Photo";
+import { Photo } from "../types/photo";
 import { fetchTable } from "../service/supabaseService";
 
 // ステートの型定義
