@@ -28,27 +28,23 @@ const MenuIcon = (props: menuIconProps) => {
     setPageContent(nextContent);
     if (path === "exit") {
       navigate("/");
-    } else if (path === "profile") {
-      navigate(`/edit/profile`); 
-    } else if (path === "photo") {
-      navigate(`/edit/photo`); 
     } else {
-      console.log("error");
+      navigate(`/edit/${path}`, { state: { pageContent: nextContent } });
     }
   };
 
-  useEffect(() =>
-  {
-    console.log("effect:"+pageContent);   
-  }
-  ,[pageContent]);
+  useEffect(() => {
+    console.log("pageContent:" + pageContent);
+  }, [pageContent]);
 
   return (
     <>
       <Box
+        key={nextContent}
         component="img"
         src={iconSelector()}
         onClick={() => {
+          console.log("click:" + nextContent);
           handleNext(nextContent);
         }}
         height="5vh"
