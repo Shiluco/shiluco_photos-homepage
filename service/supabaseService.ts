@@ -1,9 +1,9 @@
+import { Photo } from "../types/photo";
 import { Profile } from "../types/profile";
 import { supabase } from "./supabaseClient";
 
 // テーブルのデータを取得する関数
-export const fetchTable = async (from: string) =>
-{
+export const fetchTable = async (from: string) => {
   if (!supabase) {
     throw new Error("Supabase client is not defined.");
   }
@@ -11,10 +11,8 @@ export const fetchTable = async (from: string) =>
     throw new Error("Table name is not defined.");
   }
 
-  const { data, error } = await supabase
-    .from(from) 
-    .select("*"); // すべてのカラムを選択
-  
+  const { data, error } = await supabase.from(from).select("*"); // すべてのカラムを選択
+
   if (error) {
     console.error("Error fetching photos:", error);
     return [];
@@ -23,8 +21,11 @@ export const fetchTable = async (from: string) =>
   return data; // 取得したデータを返す
 };
 
-export const updateTable = async (from: string, id: string, data: Profile) =>
-{
+export const updateTable = async (
+  from: string,
+  id: string,
+  data: Profile | Photo
+) => {
   if (!supabase) {
     throw new Error("Supabase client is not defined.");
   }
@@ -32,20 +33,17 @@ export const updateTable = async (from: string, id: string, data: Profile) =>
     throw new Error("Table name is not defined.");
   }
 
-  const { error } = await supabase
-    .from(from)
-    .update(data)
-    .eq("id", id); // idが一致する行を更新
-  
+  const { error } = await supabase.from(from).update(data).eq("id", id); // idが一致する行を更新
+
   if (error) {
     console.error("Error updating photos:", error);
     return false;
   }
 
   return true; // 更新が成功した場合はtrueを返す
-}
+};
 
-export const fetchPhotoURL = async (bucket:string,path: string) => {
+export const fetchPhotoURL = async (bucket: string, path: string) => {
   if (!supabase) {
     throw new Error("Supabase client is not defined.");
   }
@@ -53,9 +51,7 @@ export const fetchPhotoURL = async (bucket:string,path: string) => {
     throw new Error("Table name is not defined.");
   }
 
-  const { data } = supabase.storage
-    .from(bucket)
-    .getPublicUrl(path);
+  const { data } = supabase.storage.from(bucket).getPublicUrl(path);
 
   // console.log("Public URL:", data.publicUrl);
 

@@ -4,7 +4,7 @@ import { Profile } from "../types/profile";
 
 // ステートの型定義
 interface UserProfileState {
-  profile:Profile
+  profile: Profile;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
 }
@@ -54,6 +54,7 @@ const userProfileSlice = createSlice({
   reducers: {}, // 今回は同期的なアクションは定義しない
   extraReducers: (builder) => {
     builder
+      //fetchUserProfile
       .addCase(fetchUserProfile.pending, (state) => {
         state.status = "loading";
         state.error = null;
@@ -65,6 +66,18 @@ const userProfileSlice = createSlice({
       .addCase(fetchUserProfile.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "Failed to fetch user profile";
+      })
+      //updateProfile
+      .addCase(updateProfile.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(updateProfile.fulfilled, (state) => {
+        state.status = "succeeded";
+      })
+      .addCase(updateProfile.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "Failed to update user profile";
       });
   },
 });
