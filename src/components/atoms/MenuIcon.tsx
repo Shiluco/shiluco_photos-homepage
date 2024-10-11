@@ -29,9 +29,9 @@ const MenuIcon = (props: menuIconProps) => {
     if (path === "exit") {
       navigate("/");
     } else if (path === "profile") {
-      navigate(`/edit/profile`); // 絶対パスとして扱うように修正
+      navigate(`/edit/profile`); 
     } else if (path === "photo") {
-      navigate(`/edit/photo`); // 絶対パスとして扱うように修正
+      navigate(`/edit/photo`); 
     } else {
       console.log("error");
     }

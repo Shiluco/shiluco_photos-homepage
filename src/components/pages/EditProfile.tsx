@@ -1,11 +1,19 @@
 import { Box } from "@mui/material";
 import MenuBar from "../Organisms/MenuBar";
 import InputForm from "../Molecules/inputForm";
-import { useAppSelector } from "../../../store/store";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
+import { useEffect } from "react";
+import { fetchUserProfile } from "../../../store/userProfileSlice";
 
 const EditProfile = () =>
 {
   const { profile } = useAppSelector((state) => state.userProfile);
+  const dispatch = useAppDispatch();
+  useEffect(() =>
+  {
+    dispatch(fetchUserProfile());
+  }
+  , []);
   return (
     <>
       <Box
@@ -27,6 +35,7 @@ const EditProfile = () =>
             justifyContent="center"
             alignItems="center"
             flexGrow={1}
+            
           >
             <InputForm
               formLabel="プロフィールのヘッダー"

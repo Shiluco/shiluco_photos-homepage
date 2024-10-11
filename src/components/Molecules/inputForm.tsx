@@ -25,7 +25,7 @@ const InputForm = (props: InputFormProps) => {
   const handleUpdateProfile = () => {
     const newValues: Profile = { ...profile, [editRow]: text };
     dispatch(updateProfile(newValues));
-    
+
   };
 
   useEffect(() => {
@@ -40,6 +40,10 @@ const InputForm = (props: InputFormProps) => {
         onChange={handleInputChange}
         onBlur={handleUpdateProfile}
         multiline
+        slotProps={{
+          input: { style: { fontSize: 30, padding: 20 } }, // 'input' 部分にスタイルを適用
+        }}
+        sx={{ width: "80vw" }} // 横幅を500pxに設定
       />
     </Box>
   );
