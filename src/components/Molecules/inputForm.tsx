@@ -30,7 +30,7 @@ const InputForm = (props: InputFormProps) => {
 
   useEffect(() => {
     setText(formValue);
-  }, []);
+  }, [formLabel, formValue]);
 
   return (
     <Box>

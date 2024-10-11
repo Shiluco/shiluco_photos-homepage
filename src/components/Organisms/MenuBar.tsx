@@ -3,25 +3,21 @@ import { Box } from "@mui/material";
 import MenuIcon from "../atoms/MenuIcon";
 import { useEffect, useState } from "react";
 
-
-
-const MenuBar = () =>
-{
-  
+const MenuBar = () => {
   const [pageContent, setPageContent] = useState("null");
 
-    useEffect(() => {
-      const path = location.pathname;
+  useEffect(() => {
+    const path = location.pathname;
 
-      if (path === "/edit/profile") {
-        setPageContent("profile");
-      } else if (path === "/edit/photo") {
-        setPageContent("photo");
-      } else {
-        setPageContent("null"); // デフォルトの値
-      }
-    }, [location.pathname]);
-  
+    if (path === "/edit/profile") {
+      setPageContent("profile");
+    } else if (path === "/edit/photo") {
+      setPageContent("photo");
+    } else {
+      setPageContent("null"); // デフォルトの値
+    }
+  }, [location.pathname]);
+
   return (
     <Box
       height="98vh"
