@@ -24,6 +24,7 @@ const EditPhoto = () => (
           alignItems="center"
           flexGrow={1}
         >
+          <Box padding={3}/>
           <ImgSort/>
         </Box>
       </Box>
