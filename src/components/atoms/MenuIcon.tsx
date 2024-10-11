@@ -3,6 +3,7 @@ import photoIcon from "../../assets/photo-upload-svgrepo-com.svg";
 import plofileIcon from "../../assets/profile-svgrepo-com.svg";
 import exitIcon from "../../assets/exit-svgrepo-com.svg";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 type menuIconProps = {
   nextContent: string;
@@ -23,15 +24,24 @@ const MenuIcon = (props: menuIconProps) => {
     return exitIcon;
   };
 
-const handleNext = (path: string) => {
-  console.log(path);
-  if (path === "exit") {
-    navigate("/");
-  } else {
-    navigate(`/edit/${path}`); // 絶対パスとして扱うように修正
-  }
-};
+  const handleNext = (path: string) => {
+    setPageContent(nextContent);
+    if (path === "exit") {
+      navigate("/");
+    } else if (path === "profile") {
+      navigate(`/edit/profile`); // 絶対パスとして扱うように修正
+    } else if (path === "photo") {
+      navigate(`/edit/photo`); // 絶対パスとして扱うように修正
+    } else {
+      console.log("error");
+    }
+  };
 
+  useEffect(() =>
+  {
+    console.log("effect:"+pageContent);   
+  }
+  ,[pageContent]);
 
   return (
     <>
@@ -39,7 +49,6 @@ const handleNext = (path: string) => {
         component="img"
         src={iconSelector()}
         onClick={() => {
-          setPageContent(nextContent);
           handleNext(nextContent);
         }}
         height="5vh"

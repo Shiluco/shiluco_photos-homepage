@@ -1,18 +1,21 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchTable } from "../service/supabaseService"; // fetchTable関数のインポート
+import { fetchTable, updateTable } from "../service/supabaseService"; // fetchTable関数のインポート
+import { Profile } from "../types/profile";
 
 // ステートの型定義
 interface UserProfileState {
-  introduction_header: string;
-  introduction: string;
+  profile:Profile
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
 }
 
 // ステートの初期化
 const initialState: UserProfileState = {
-  introduction_header: "",
-  introduction: "",
+  profile: {
+    id: 0,
+    introduction_header: "",
+    introduction: "",
+  },
   status: "idle", // データ取得のステータス
   error: null, // エラーメッセージ
 };
@@ -24,6 +27,20 @@ export const fetchUserProfile = createAsyncThunk(
     const data = await fetchTable("user_profile"); // fetchTable関数でSupabaseからデータを取得
     if (data.length > 0) {
       return data[0]; // 取得したデータの最初のエントリを返す
+    } else {
+      throw new Error("No user profile data found");
+    }
+  }
+);
+
+export const updateProfile = createAsyncThunk(
+  "userProfile/updateProfile",
+  async (profile: Profile) => {
+    const data = await fetchTable("user_profile");
+    if (data.length > 0) {
+      const id = data[0].id;
+      const response = await updateTable("user_profile", id, profile);
+      return response;
     } else {
       throw new Error("No user profile data found");
     }
@@ -43,8 +60,7 @@ const userProfileSlice = createSlice({
       })
       .addCase(fetchUserProfile.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.introduction_header = action.payload.introduction_header;
-        state.introduction = action.payload.introduction;
+        state.profile = action.payload;
       })
       .addCase(fetchUserProfile.rejected, (state, action) => {
         state.status = "failed";
