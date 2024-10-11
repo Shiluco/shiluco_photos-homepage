@@ -40,23 +40,28 @@ const MenuIcon = (props: menuIconProps) => {
   return (
     <>
       <Box
-        key={nextContent}
-        component="img"
-        src={iconSelector()}
-        onClick={() => {
-          console.log("click:" + nextContent);
-          handleNext(nextContent);
-        }}
-        height="5vh"
-        padding={1}
-        sx={{
-          opacity: 0.8,
-          backgroundColor:
-            pageContent === nextContent
-              ? "rgba(255,255,255,0.5)"
-              : "transparent", // 一致したら背景を白に
-          borderRadius: 1, // 角を少し丸くしたい場合
-        }}
+      key={nextContent}
+      component="img"
+      src={iconSelector()}
+      onClick={() => {
+        console.log("click:" + nextContent);
+        handleNext(nextContent);
+      }}
+      height="5vh"
+      padding={1}
+      sx={{
+        opacity: 0.8,
+        backgroundColor:
+        pageContent === nextContent
+          ? "rgba(255,255,255,0.5)"
+          : "transparent", // 一致したら背景を白に
+        borderRadius: 4, // 角を丸くする
+        boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)", // 影をつける
+        "&:hover": {
+        opacity: 1,
+        cursor: "pointer",
+        },
+      }}
       />
     </>
   );

@@ -1,5 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import MenuBar from "../Organisms/MenuBar";
+import ImgSort from "../Organisms/imgSort";
+
 
 const EditPhoto = () => (
   <>
@@ -22,7 +24,7 @@ const EditPhoto = () => (
           alignItems="center"
           flexGrow={1}
         >
-          <Typography variant="h1">Edit Photo</Typography>
+          <ImgSort/>
         </Box>
       </Box>
     </Box>
