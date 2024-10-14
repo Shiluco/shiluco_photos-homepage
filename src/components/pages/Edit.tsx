@@ -1,14 +1,8 @@
-import { Box, Typography, } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import MenuBar from "../Organisms/MenuBar";
 
-
-
-
 const Edit = () => {
-  
-
-  
   return (
     <>
       <Box
@@ -19,24 +13,19 @@ const Edit = () => {
           backgroundColor: "rgba(0,0,0,0.1)",
         }}
       >
-        <Box display={"flex"} >
+        <Box display={"flex"}>
           <Box>
             <MenuBar />
           </Box>
-          
-            <Box
+
+          <Box
             display="flex"
             justifyContent="center"
             alignItems="center"
             flexGrow={1}
-            >
-            <Typography variant="h1">
-              編集してみよう！
-            </Typography>
-            </Box>
-
-            
-
+          >
+            <Typography variant="h4">編集してみよう！</Typography>
+          </Box>
         </Box>
       </Box>
     </>
