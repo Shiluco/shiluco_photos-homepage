@@ -23,7 +23,7 @@ export const fetchTable = async (from: string) => {
 
 export const updateTable = async (
   from: string,
-  id: string,
+  id: number,
   data: Profile | Photo
 ) => {
   if (!supabase) {
@@ -56,4 +56,30 @@ export const fetchPhotoURL = async (bucket: string, path: string) => {
   // console.log("Public URL:", data.publicUrl);
 
   return data; // 取得したデータを返す
+};
+
+export const uploadPhoto = async (bucket: string,filePath:string, file: File) => {
+  if (!supabase) {
+    throw new Error("Supabase client is not defined.");
+  }
+  if (!file) {
+    throw new Error("File is not defined.");
+  }
+  console.log(bucket);
+  console.log("filePath:"+filePath);
+  console.log("Uploading photo:", file);
+
+
+  const { data, error } = await supabase.storage.from(bucket).upload(filePath, file);
+
+  if (error) {
+    console.error("Error uploading photo:", error);
+    return null;
+  }
+  else
+  { 
+    console.log("Upload succeeded!:", data);
+  }
+
+  return data; // アップロードしたデータを返す
 };

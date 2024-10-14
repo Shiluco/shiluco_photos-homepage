@@ -21,7 +21,11 @@ const MenuBar = () => {
   return (
     <Box
       height="98vh"
-      sx={{ backgroundColor: "rgba(0,0,0,0.05)", borderRadius: "8px" }}
+      sx={{ 
+      backgroundColor: "rgba(0,0,0,0.1)", 
+      borderRadius: "8px",
+      boxShadow: "1px 2px 9px rgba(0, 0, 0, 0.3)" // 影を追加
+      }}
     >
       <Box padding={1} display={"flex"} flexDirection="column">
         <MenuIcon
@@ -29,11 +33,13 @@ const MenuBar = () => {
           pageContent={pageContent}
           setPageContent={setPageContent}
         />
+        <Box paddingTop={2}/>
         <MenuIcon
           nextContent={"photo"}
           pageContent={pageContent}
           setPageContent={setPageContent}
         />
+        <Box paddingTop={2}/>
         <MenuIcon
           nextContent={"exit"}
           pageContent={pageContent}
