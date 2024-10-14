@@ -6,7 +6,7 @@ const password = import.meta.env.VITE_PASSWORD;
 
 interface AuthState {
   user: User | null;
-  isLogin: boolean;
+  isLogIn: boolean;
   error: string | null;
 }
 
@@ -15,7 +15,7 @@ const initialState: AuthState = {
     id: id,
     password: password,
   },
-  isLogin: false,
+  isLogIn: false,
   error: null,
 };
 const authSlice = createSlice({
@@ -25,9 +25,7 @@ const authSlice = createSlice({
     setErrorMessage: (state, action) => {
       state.error = action.payload;
     },
-    login: (state, action) =>
-    {
-      
+    logIn: (state, action) => {
       if (!state.user) {
         throw new Error("ユーザー情報の読み込みに失敗しました");
       }
@@ -42,18 +40,17 @@ const authSlice = createSlice({
         state.user.password === action.payload.password
       ) {
         setErrorMessage(null);
-        state.isLogin = true;
-        
+        state.isLogIn = true;
       } else {
         setErrorMessage("IDまたはパスワードが違います");
-        state.isLogin = false;
+        state.isLogIn = false;
       }
     },
-    logout: (state) => {
-      state.isLogin = false;
+    logOut: (state) => {
+      state.isLogIn = false;
     },
   },
 });
 
-export const { setErrorMessage, login } = authSlice.actions;
+export const { setErrorMessage, logIn, logOut } = authSlice.actions;
 export default authSlice.reducer;

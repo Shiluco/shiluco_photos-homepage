@@ -16,37 +16,35 @@ import Edit from "./components/pages/Edit";
 import EditProfile from "./components/pages/EditProfile";
 import EditPhoto from "./components/pages/EditPhoto";
 
-import { ThemeProvider } from "@emotion/react";
-import theme from "./theme";
-import { CssBaseline } from "@mui/material";
 import { PageProvider } from "../context/TransitionContext";
-import { Provider } from "react-redux";
-import { store } from "../store/store";
+import { useSelector } from "react-redux";
 
 // App コンポーネント
 function App() {
+  const isLogIn = useSelector(
+    (state: { auth: { isLogIn: boolean } }) => state.auth.isLogIn
+  );
   return (
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Router>
-          <PageProvider>
-            <Layout>
-              <Routes>
-                <Route path="/" element={<Top />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/gallery" element={<Gallery />} />
-                <Route path="/login" element={<Login />} />
+    <Router>
+      <PageProvider>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<Top />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/login" element={<Login />} />
+            {isLogIn && (
+              <>
                 <Route path="/edit" element={<Edit />} />
                 <Route path="/edit/profile" element={<EditProfile />} />
                 <Route path="/edit/photo" element={<EditPhoto />} />
-              </Routes>
-            </Layout>
-          </PageProvider>
-        </Router>
-      </ThemeProvider>
-    </Provider>
+              </>
+            )}
+          </Routes>
+        </Layout>
+      </PageProvider>
+    </Router>
   );
 }
 

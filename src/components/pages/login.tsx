@@ -1,33 +1,33 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TextField, Button, Container, Typography, Box } from "@mui/material";
-import { login, setErrorMessage } from "../../../store/authSlice";
+import { logIn, setErrorMessage } from "../../../store/authSlice";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const LogIn = () => {
   const dispatch = useDispatch();
   const [message, setMessage] = useState("");
   const error = useSelector((state: { auth: { error: string } }) => state.auth);
-  const islogin = useSelector(
-    (state: { auth: { isLogin: boolean } }) => state.auth.isLogin
+  const isLogIn = useSelector(
+    (state: { auth: { isLogIn: boolean } }) => state.auth.isLogIn
   );
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = () => {
+  const handleLogIn = () => {
     if (id && password) {
-      dispatch(login({ id, password }));
+      dispatch(logIn({ id, password }));
     } else {
       dispatch(setErrorMessage("IDとパスワードを入力してください"));
     }
   };
 
   useEffect(() => {
-    if (islogin) {
+    if (isLogIn) {
       navigate("/edit");
     }
-  }, [islogin, navigate]);
+  }, [isLogIn, navigate]);
 
   useEffect(() =>
   { 
@@ -63,7 +63,7 @@ const Login = () => {
             {message}
           </Typography>
         )}
-        <Button variant="contained" color="primary" onClick={handleLogin}>
+        <Button variant="contained" color="primary" onClick={handleLogIn}>
           ログイン
         </Button>
       </Box>
@@ -71,4 +71,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LogIn;
