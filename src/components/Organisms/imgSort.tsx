@@ -1,12 +1,15 @@
-import { useAppSelector } from "../../../store/store";
+import { useAppDispatch, useAppSelector } from "../../../store/store";
 import SortableItem from "../atoms/sortableItem"; // 新しいファイルからインポート
 import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { SortableContext, arrayMove } from "@dnd-kit/sortable";
 import { Box } from "@mui/material";
 import { useState } from "react";
+import { updatePhoto } from "../../../store/photoSlice";
 
 
-const ImgSort = () => {
+const ImgSort = () =>
+{
+  const dispatch = useAppDispatch();  
   const { photo } = useAppSelector((state) => state.photo);
   const [photos, setPhotos] = useState(
     photo ? [...photo].sort((a, b) => a.index - b.index) : []
@@ -20,6 +23,9 @@ const ImgSort = () => {
       const newIndex = photos.findIndex((p) => p.id === over.id);
 
       setPhotos((photos) => arrayMove(photos, oldIndex, newIndex));
+      
+      dispatch(updatePhoto(photos[oldIndex])); // 古い位置の要素
+      dispatch(updatePhoto(photos[newIndex])); // 新しい位置の要素
     }
   };
 
