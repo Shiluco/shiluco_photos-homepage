@@ -76,6 +76,10 @@ export const uploadPhoto = async (bucket: string,filePath:string, file: File) =>
     console.error("Error uploading photo:", error);
     return null;
   }
+  else
+  { 
+    console.log("Upload succeeded!:", data);
+  }
 
   return data; // アップロードしたデータを返す
 };

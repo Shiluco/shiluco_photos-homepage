@@ -1,12 +1,10 @@
-import { Typography, Box } from "@mui/material";
+import { Typography } from "@mui/material";
 import PhotoUploadArea from "../Molecules/photoUploadArea";
 
 const PhotoDataEditor = () => {
   return (
     <>
-      <Box>
-        <Typography variant="h1">Hello World</Typography>
-      </Box>
+      <Typography variant="h6">写真の投稿</Typography>
       <PhotoUploadArea path={`photos/`} />
     </>
   );
