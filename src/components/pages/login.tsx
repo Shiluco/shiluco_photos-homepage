@@ -29,11 +29,9 @@ const LogIn = () => {
     }
   }, [isLogIn, navigate]);
 
-  useEffect(() =>
-  { 
-    setMessage(error.error);
-  }
-  , [error.error]);
+useEffect(() => {
+  setMessage(error.error); 
+}, [error]);
 
   return (
     <Container maxWidth="sm">

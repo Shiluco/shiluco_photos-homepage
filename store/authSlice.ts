@@ -27,22 +27,25 @@ const authSlice = createSlice({
     },
     logIn: (state, action) => {
       if (!state.user) {
-        throw new Error("ユーザー情報の読み込みに失敗しました");
+        state.error = "ユーザー情報の読み込みに失敗しました";
+        return;
       }
       if (!state.user.id) {
-        throw new Error("IDの読み込みに失敗しました");
+        state.error = "IDの読み込みに失敗しました";
+        return;
       }
       if (!state.user.password) {
-        throw new Error("パスワードの読み込みに失敗しました");
+        state.error = "パスワードの読み込みに失敗しました";
+        return;
       }
       if (
         state.user.id === action.payload.id &&
         state.user.password === action.payload.password
       ) {
-        setErrorMessage(null);
+        state.error = null; // エラーをクリア
         state.isLogIn = true;
       } else {
-        setErrorMessage("IDまたはパスワードが違います");
+        state.error = "IDまたはパスワードが違います";
         state.isLogIn = false;
       }
     },
@@ -51,6 +54,7 @@ const authSlice = createSlice({
     },
   },
 });
+
 
 export const { setErrorMessage, logIn, logOut } = authSlice.actions;
 export default authSlice.reducer;
