@@ -1,7 +1,8 @@
 import { useGSAP } from "@gsap/react";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { useRef } from "react";
 import gsap from "gsap";
+import PhotoDataEditor from "../Organisms/photoDataEditor";
 
 type AddPhotoButtonProps = {
   isModalOpen: boolean;
@@ -17,7 +18,7 @@ const AddPhotoButton = (props: AddPhotoButtonProps) => {
     timeline.fromTo(
       modal.current,
       { opacity: 0 },
-      { opacity: 1, duration: 0.2 ,ease: "power2.out"}
+      { opacity: 1, duration: 0.2, ease: "power2.out" }
     );
   }, [isModalOpen]);
 
@@ -41,9 +42,7 @@ const AddPhotoButton = (props: AddPhotoButtonProps) => {
             boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", // シャドウを追加して浮き上がらせる
           }}
         >
-          <Typography>
-            {isModalOpen ? "モーダルが開いています" : "モーダルが閉じています"}
-          </Typography>
+          <PhotoDataEditor />
         </Box>
         <Box
           sx={{
