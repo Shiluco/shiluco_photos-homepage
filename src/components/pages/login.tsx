@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { TextField, Button, Container, Typography, Box } from "@mui/material";
+import { TextField, Container, Typography, Box } from "@mui/material";
 import { logIn, setErrorMessage } from "../../../store/authSlice";
 import { useNavigate } from "react-router-dom";
+
+import loginIcon from "../../assets/login-svgrepo-com.svg";
 
 const LogIn = () => {
   const dispatch = useDispatch();
@@ -29,29 +31,28 @@ const LogIn = () => {
     }
   }, [isLogIn, navigate]);
 
-useEffect(() => {
-  setMessage(error.error); 
-}, [error]);
+  useEffect(() => {
+    setMessage(error.error);
+  }, [error]);
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" >
       <Box display="flex" flexDirection="column" alignItems="center" mt={8}>
         <Typography variant="h4" gutterBottom>
-          ログイン
+          LogIn
         </Typography>
         <TextField
           label="ID"
           variant="outlined"
-          fullWidth
           margin="normal"
           value={id}
           onChange={(e) => setId(e.target.value)}
         />
         <TextField
-          label="パスワード"
+          label="Pass"
           type="password"
           variant="outlined"
-          fullWidth
+          
           margin="normal"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -61,9 +62,14 @@ useEffect(() => {
             {message}
           </Typography>
         )}
-        <Button variant="contained" color="primary" onClick={handleLogIn}>
-          ログイン
-        </Button>
+
+        <Box
+          component="img"
+          src={loginIcon}
+          height="5vh"
+          mt={5}
+          onClick={handleLogIn}
+        />
       </Box>
     </Container>
   );
