@@ -1,15 +1,13 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { Container, Box, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { TextField, Container, Typography, Box } from "@mui/material";
 import { logIn, setErrorMessage } from "../../../store/authSlice";
 import { useNavigate } from "react-router-dom";
+import InputFields from "../Molecules/InputFields";
+import LoginButton from "../atoms/logInButton";
 
-import loginIcon from "../../assets/login-svgrepo-com.svg";
-
-const LogIn = () => {
+const LogInBase = () => {
   const dispatch = useDispatch();
-  const [message, setMessage] = useState("");
-  const error = useSelector((state: { auth: { error: string } }) => state.auth);
   const isLogIn = useSelector(
     (state: { auth: { isLogIn: boolean } }) => state.auth.isLogIn
   );
@@ -31,48 +29,29 @@ const LogIn = () => {
     }
   }, [isLogIn, navigate]);
 
-  useEffect(() => {
-    setMessage(error.error);
-  }, [error]);
-
   return (
-    <Container maxWidth="sm" >
-      <Box display="flex" flexDirection="column" alignItems="center" mt={8}>
+    <Container maxWidth="sm">
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="center"
+        minHeight="90vh"
+      >
         <Typography variant="h4" gutterBottom>
           LogIn
         </Typography>
-        <TextField
-          label="ID"
-          variant="outlined"
-          margin="normal"
-          value={id}
-          onChange={(e) => setId(e.target.value)}
+        <InputFields
+          id={id}
+          setId={setId}
+          password={password}
+          setPassword={setPassword}
         />
-        <TextField
-          label="Pass"
-          type="password"
-          variant="outlined"
-          
-          margin="normal"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        {error.error && (
-          <Typography color="error" variant="body2" gutterBottom>
-            {message}
-          </Typography>
-        )}
-
-        <Box
-          component="img"
-          src={loginIcon}
-          height="5vh"
-          mt={5}
-          onClick={handleLogIn}
-        />
+        <LoginButton handleLogIn={handleLogIn} />
+        
       </Box>
     </Container>
   );
 };
 
-export default LogIn;
+export default LogInBase;
