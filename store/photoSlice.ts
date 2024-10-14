@@ -35,7 +35,7 @@ export const updatePhoto = createAsyncThunk(
   async (photo: Photo) => {
     const data = await fetchTable("photo");
     if (data.length > 0) {
-      const id = data[0].id;
+      const id = photo.id;
       const response = await updateTable("photo", id, photo);
       return response;
     } else {

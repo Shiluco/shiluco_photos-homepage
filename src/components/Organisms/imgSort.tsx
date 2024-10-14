@@ -6,10 +6,8 @@ import { Box } from "@mui/material";
 import { useState } from "react";
 import { updatePhoto } from "../../../store/photoSlice";
 
-
-const ImgSort = () =>
-{
-  const dispatch = useAppDispatch();  
+const ImgSort = () => {
+  const dispatch = useAppDispatch();
   const { photo } = useAppSelector((state) => state.photo);
   const [photos, setPhotos] = useState(
     photo ? [...photo].sort((a, b) => a.index - b.index) : []
@@ -18,14 +16,21 @@ const ImgSort = () =>
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
-    if (active && over && active.id !== over.id) {
+    if (active && over && Number(active.id) - 1 !== Number(over.id) - 1) {
       const oldIndex = photos.findIndex((p) => p.id === active.id);
       const newIndex = photos.findIndex((p) => p.id === over.id);
+      const newPhotos = arrayMove(photos, oldIndex, newIndex);
 
-      setPhotos((photos) => arrayMove(photos, oldIndex, newIndex));
-      
-      dispatch(updatePhoto(photos[oldIndex])); // 古い位置の要素
-      dispatch(updatePhoto(photos[newIndex])); // 新しい位置の要素
+      // 並び替えた後、id を順番に更新
+      const updatedPhotos = newPhotos.map((photo, index) => ({
+        ...photo,
+        index: index + 1,
+      }));
+
+      setPhotos(updatedPhotos);
+      console.log(updatedPhotos);
+      dispatch(updatePhoto(updatedPhotos[oldIndex])); // 古い位置の要素
+      dispatch(updatePhoto(updatedPhotos[newIndex])); // 新しい位置の要素
     }
   };
 

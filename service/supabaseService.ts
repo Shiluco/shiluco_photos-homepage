@@ -23,7 +23,7 @@ export const fetchTable = async (from: string) => {
 
 export const updateTable = async (
   from: string,
-  id: string,
+  id: number,
   data: Profile | Photo
 ) => {
   if (!supabase) {
