@@ -6,3 +6,4 @@ export type Photo = {
   path: string;
   url: string;
 };
+//ファイル名: types/photo.ts

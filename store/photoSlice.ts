@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchPhotoURL } from "../service/supabaseService";
+import { fetchPhotoURL, updateTable } from "../service/supabaseService";
 
-import { Photo } from "../types/Photo";
+import { Photo } from "../types/photo";
 import { fetchTable } from "../service/supabaseService";
 
 // ステートの型定義
@@ -30,6 +30,20 @@ export const fetchPhotoTable = createAsyncThunk(
   }
 );
 
+export const updatePhoto = createAsyncThunk(
+  "photoSlice/updatePhoto",
+  async (photo: Photo) => {
+    const data = await fetchTable("photo");
+    if (data.length > 0) {
+      const id = photo.id;
+      const response = await updateTable("photo", id, photo);
+      return response;
+    } else {
+      throw new Error("No photo data found");
+    }
+  }
+);
+
 export const fetchAllPhotoURLs = createAsyncThunk(
   "photoSlice/fetchAllPhotoURLs",
   async () => {
@@ -38,7 +52,7 @@ export const fetchAllPhotoURLs = createAsyncThunk(
       const photoURLs = await Promise.all(
         data.map(async (photo: Photo) => {
           const url = await fetchPhotoURL("photos", photo.path);
-          
+
           return { ...photo, url: url.publicUrl };
         })
       );
@@ -81,6 +95,18 @@ export const photoSlice = createSlice({
         state.photo = action.payload || [];
       })
       .addCase(fetchAllPhotoURLs.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message || "Failed to fetch user profile";
+      })
+      //updatePhoto
+      .addCase(updatePhoto.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(updatePhoto.fulfilled, (state) => {
+        state.status = "succeeded";
+      })
+      .addCase(updatePhoto.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message || "Failed to fetch user profile";
       });
